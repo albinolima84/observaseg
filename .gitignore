@@ -26,6 +26,9 @@ venv/
 .DS_Store
 Thumbs.db
 
+# TypeScript
+tsconfig.tsbuildinfo
+
 # Editor
 .vscode/
 .idea/
