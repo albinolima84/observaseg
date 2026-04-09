@@ -1,0 +1,214 @@
+{
+  "fonte": "Fórum Brasileiro de Segurança Pública, 2025",
+  "tabela": "T96",
+  "dados": [
+    {
+      "uf": "Acre",
+      "regiao": "Norte",
+      "total_2023": 391518493.96,
+      "total_2024": 392941266.16,
+      "variacao_pct": 0.36,
+      "per_capita_2024": 105712203.78
+    },
+    {
+      "uf": "Alagoas",
+      "regiao": "Nordeste",
+      "total_2023": 180984716.19,
+      "total_2024": 93601959.78,
+      "variacao_pct": -48.28,
+      "per_capita_2024": 999796.02
+    },
+    {
+      "uf": "Amapá",
+      "regiao": "Norte",
+      "total_2023": 61763938.17,
+      "total_2024": 69875009.1,
+      "variacao_pct": 13.13,
+      "per_capita_2024": 8736854.49
+    },
+    {
+      "uf": "Amazonas",
+      "regiao": "Norte",
+      "total_2023": 17389324.44,
+      "total_2024": 14352137.08,
+      "variacao_pct": -17.47,
+      "per_capita_2024": 69305022.31
+    },
+    {
+      "uf": "Bahia",
+      "regiao": "Nordeste",
+      "total_2023": 906070299.32,
+      "total_2024": 955931832.52,
+      "variacao_pct": 5.5,
+      "per_capita_2024": 69665107.65
+    },
+    {
+      "uf": "Ceará",
+      "regiao": "Nordeste",
+      "total_2023": 358047907.58,
+      "total_2024": 471963973.83,
+      "variacao_pct": 31.82,
+      "per_capita_2024": 2198267.06
+    },
+    {
+      "uf": "Distrito Federal",
+      "regiao": "Centro-Oeste",
+      "total_2023": 165326900.88,
+      "total_2024": 178412969.17,
+      "variacao_pct": 7.92,
+      "per_capita_2024": 23024.35
+    },
+    {
+      "uf": "Espírito Santo",
+      "regiao": "Sudeste",
+      "total_2023": 357069607.44,
+      "total_2024": 405223954.5,
+      "variacao_pct": 13.49,
+      "per_capita_2024": 47902817.36
+    },
+    {
+      "uf": "Goiás",
+      "regiao": "Centro-Oeste",
+      "total_2023": 258138932.88,
+      "total_2024": 277957730.17,
+      "variacao_pct": 7.68,
+      "per_capita_2024": 34974251.0
+    },
+    {
+      "uf": "Maranhão",
+      "regiao": "Nordeste",
+      "total_2023": 141521759.73,
+      "total_2024": 143102500.06,
+      "variacao_pct": 1.12,
+      "per_capita_2024": 8534754.91
+    },
+    {
+      "uf": "Mato Grosso",
+      "regiao": "Centro-Oeste",
+      "total_2023": 274032788.71,
+      "total_2024": 494687086.18,
+      "variacao_pct": 80.52,
+      "per_capita_2024": 13084243.38
+    },
+    {
+      "uf": "Mato Grosso do Sul",
+      "regiao": "Centro-Oeste",
+      "total_2023": 1224790455.18,
+      "total_2024": 1123874967.68,
+      "variacao_pct": -8.24,
+      "per_capita_2024": null
+    },
+    {
+      "uf": "Pará",
+      "regiao": "Norte",
+      "total_2023": 420702014.76,
+      "total_2024": 441400436.46,
+      "variacao_pct": 4.92,
+      "per_capita_2024": 83762101.89
+    },
+    {
+      "uf": "Paraíba",
+      "regiao": "Nordeste",
+      "total_2023": 30358383.86,
+      "total_2024": 32933271.97,
+      "variacao_pct": 8.48,
+      "per_capita_2024": 15724177.95
+    },
+    {
+      "uf": "Paraná",
+      "regiao": "Sul",
+      "total_2023": 3424639270.63,
+      "total_2024": 2940984917.12,
+      "variacao_pct": -14.12,
+      "per_capita_2024": 553561070.61
+    },
+    {
+      "uf": "Pernambuco",
+      "regiao": "Nordeste",
+      "total_2023": 3013210709.58,
+      "total_2024": 3130184040.04,
+      "variacao_pct": 3.88,
+      "per_capita_2024": 300593139.63
+    },
+    {
+      "uf": "Piauí",
+      "regiao": "Nordeste",
+      "total_2023": 123343906.27,
+      "total_2024": 227635106.05,
+      "variacao_pct": 84.55,
+      "per_capita_2024": 95665437.85
+    },
+    {
+      "uf": "Rio de Janeiro",
+      "regiao": "Sudeste",
+      "total_2023": 449295547.67,
+      "total_2024": 453785515.88,
+      "variacao_pct": 1.0,
+      "per_capita_2024": 262738506.52
+    },
+    {
+      "uf": "Rio Grande do Norte",
+      "regiao": "Nordeste",
+      "total_2023": 75841996.74,
+      "total_2024": 99569139.68,
+      "variacao_pct": 31.28,
+      "per_capita_2024": 30114610.55
+    },
+    {
+      "uf": "Rio Grande do Sul",
+      "regiao": "Sul",
+      "total_2023": 3553768846.96,
+      "total_2024": 3631104055.85,
+      "variacao_pct": 2.18,
+      "per_capita_2024": 529494782.23
+    },
+    {
+      "uf": "Rondônia",
+      "regiao": "Norte",
+      "total_2023": 787427899.06,
+      "total_2024": 881880235.2,
+      "variacao_pct": 12.0,
+      "per_capita_2024": 148367381.86
+    },
+    {
+      "uf": "Roraima",
+      "regiao": "Norte",
+      "total_2023": 76404171.81,
+      "total_2024": 66774905.71,
+      "variacao_pct": -12.6,
+      "per_capita_2024": 11785746.44
+    },
+    {
+      "uf": "Santa Catarina",
+      "regiao": "Sul",
+      "total_2023": 227672384.07,
+      "total_2024": 307843931.01,
+      "variacao_pct": 35.21,
+      "per_capita_2024": 139717409.35
+    },
+    {
+      "uf": "São Paulo",
+      "regiao": "Sudeste",
+      "total_2023": 14386319554.89,
+      "total_2024": 14561761829.67,
+      "variacao_pct": 1.22,
+      "per_capita_2024": 50607509.59
+    },
+    {
+      "uf": "Sergipe",
+      "regiao": "Nordeste",
+      "total_2023": 714057215.61,
+      "total_2024": 767011914.03,
+      "variacao_pct": 7.42,
+      "per_capita_2024": 140313136.06
+    },
+    {
+      "uf": "Tocantins",
+      "regiao": "Norte",
+      "total_2023": 75425644.65,
+      "total_2024": 91284046.23,
+      "variacao_pct": 21.03,
+      "per_capita_2024": 4666368.72
+    }
+  ]
+}

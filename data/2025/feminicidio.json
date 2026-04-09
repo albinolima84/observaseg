@@ -1,0 +1,286 @@
+{
+  "fonte": "Fórum Brasileiro de Segurança Pública, 2025",
+  "tabela": "T24",
+  "dados": [
+    {
+      "uf": "Brasil",
+      "regiao": null,
+      "homicidios_mulheres_2023": 4,
+      "homicidios_mulheres_2024": 3700,
+      "feminicidios_2023": 1,
+      "feminicidios_2024": 3,
+      "proporcao_2023": 25.0,
+      "proporcao_2024": 0.08
+    },
+    {
+      "uf": "Acre",
+      "regiao": "Norte",
+      "homicidios_mulheres_2023": 3,
+      "homicidios_mulheres_2024": 13,
+      "feminicidios_2023": 2,
+      "feminicidios_2024": 3,
+      "proporcao_2023": 66.67,
+      "proporcao_2024": 23.08
+    },
+    {
+      "uf": "Alagoas",
+      "regiao": "Nordeste",
+      "homicidios_mulheres_2023": 5,
+      "homicidios_mulheres_2024": 73,
+      "feminicidios_2023": 1,
+      "feminicidios_2024": 4,
+      "proporcao_2023": 20.0,
+      "proporcao_2024": 5.48
+    },
+    {
+      "uf": "Amapá",
+      "regiao": "Norte",
+      "homicidios_mulheres_2023": 3,
+      "homicidios_mulheres_2024": 6,
+      "feminicidios_2023": 1,
+      "feminicidios_2024": 1,
+      "proporcao_2023": 33.33,
+      "proporcao_2024": 16.67
+    },
+    {
+      "uf": "Amazonas",
+      "regiao": "Norte",
+      "homicidios_mulheres_2023": 5,
+      "homicidios_mulheres_2024": 77,
+      "feminicidios_2023": 1,
+      "feminicidios_2024": 4,
+      "proporcao_2023": 20.0,
+      "proporcao_2024": 5.19
+    },
+    {
+      "uf": "Bahia",
+      "regiao": "Nordeste",
+      "homicidios_mulheres_2023": 6,
+      "homicidios_mulheres_2024": 388,
+      "feminicidios_2023": 2,
+      "feminicidios_2024": 5,
+      "proporcao_2023": 33.33,
+      "proporcao_2024": 1.29
+    },
+    {
+      "uf": "Ceará",
+      "regiao": "Nordeste",
+      "homicidios_mulheres_2023": 6,
+      "homicidios_mulheres_2024": 310,
+      "feminicidios_2023": 1,
+      "feminicidios_2024": 7,
+      "proporcao_2023": 16.67,
+      "proporcao_2024": 2.26
+    },
+    {
+      "uf": "Distrito Federal",
+      "regiao": "Centro-Oeste",
+      "homicidios_mulheres_2023": 3,
+      "homicidios_mulheres_2024": 35,
+      "feminicidios_2023": 2,
+      "feminicidios_2024": 2,
+      "proporcao_2023": 66.67,
+      "proporcao_2024": 5.71
+    },
+    {
+      "uf": "Espírito Santo",
+      "regiao": "Sudeste",
+      "homicidios_mulheres_2023": 4,
+      "homicidios_mulheres_2024": 93,
+      "feminicidios_2023": 2,
+      "feminicidios_2024": 4,
+      "proporcao_2023": 50.0,
+      "proporcao_2024": 4.3
+    },
+    {
+      "uf": "Goiás",
+      "regiao": "Centro-Oeste",
+      "homicidios_mulheres_2023": 3,
+      "homicidios_mulheres_2024": 119,
+      "feminicidios_2023": 2,
+      "feminicidios_2024": 3,
+      "proporcao_2023": 66.67,
+      "proporcao_2024": 2.52
+    },
+    {
+      "uf": "Maranhão",
+      "regiao": "Nordeste",
+      "homicidios_mulheres_2023": 4,
+      "homicidios_mulheres_2024": 156,
+      "feminicidios_2023": 1,
+      "feminicidios_2024": 4,
+      "proporcao_2023": 25.0,
+      "proporcao_2024": 2.56
+    },
+    {
+      "uf": "Mato Grosso",
+      "regiao": "Centro-Oeste",
+      "homicidios_mulheres_2023": 5,
+      "homicidios_mulheres_2024": 100,
+      "feminicidios_2023": 2,
+      "feminicidios_2024": 5,
+      "proporcao_2023": 40.0,
+      "proporcao_2024": 5.0
+    },
+    {
+      "uf": "Mato Grosso do Sul",
+      "regiao": "Centro-Oeste",
+      "homicidios_mulheres_2023": 4,
+      "homicidios_mulheres_2024": 56,
+      "feminicidios_2023": 2,
+      "feminicidios_2024": 4,
+      "proporcao_2023": 50.0,
+      "proporcao_2024": 7.14
+    },
+    {
+      "uf": "Minas Gerais",
+      "regiao": "Sudeste",
+      "homicidios_mulheres_2023": 3,
+      "homicidios_mulheres_2024": 347,
+      "feminicidios_2023": 2,
+      "feminicidios_2024": 3,
+      "proporcao_2023": 66.67,
+      "proporcao_2024": 0.86
+    },
+    {
+      "uf": "Pará",
+      "regiao": "Norte",
+      "homicidios_mulheres_2023": 5,
+      "homicidios_mulheres_2024": 178,
+      "feminicidios_2023": 1,
+      "feminicidios_2024": 4,
+      "proporcao_2023": 20.0,
+      "proporcao_2024": 2.25
+    },
+    {
+      "uf": "Paraíba",
+      "regiao": "Nordeste",
+      "homicidios_mulheres_2023": 3,
+      "homicidios_mulheres_2024": 66,
+      "feminicidios_2023": 2,
+      "feminicidios_2024": 3,
+      "proporcao_2023": 66.67,
+      "proporcao_2024": 4.55
+    },
+    {
+      "uf": "Paraná",
+      "regiao": "Sul",
+      "homicidios_mulheres_2023": 4,
+      "homicidios_mulheres_2024": 246,
+      "feminicidios_2023": 1,
+      "feminicidios_2024": 4,
+      "proporcao_2023": 25.0,
+      "proporcao_2024": 1.63
+    },
+    {
+      "uf": "Pernambuco",
+      "regiao": "Nordeste",
+      "homicidios_mulheres_2023": 6,
+      "homicidios_mulheres_2024": 257,
+      "feminicidios_2023": 2,
+      "feminicidios_2024": 5,
+      "proporcao_2023": 33.33,
+      "proporcao_2024": 1.95
+    },
+    {
+      "uf": "Piauí",
+      "regiao": "Nordeste",
+      "homicidios_mulheres_2023": 4,
+      "homicidios_mulheres_2024": 72,
+      "feminicidios_2023": 2,
+      "feminicidios_2024": 4,
+      "proporcao_2023": 50.0,
+      "proporcao_2024": 5.56
+    },
+    {
+      "uf": "Rio de Janeiro",
+      "regiao": "Sudeste",
+      "homicidios_mulheres_2023": 3,
+      "homicidios_mulheres_2024": 245,
+      "feminicidios_2023": 1,
+      "feminicidios_2024": 3,
+      "proporcao_2023": 33.33,
+      "proporcao_2024": 1.22
+    },
+    {
+      "uf": "Rio Grande do Norte",
+      "regiao": "Nordeste",
+      "homicidios_mulheres_2023": 4,
+      "homicidios_mulheres_2024": 51,
+      "feminicidios_2023": 1,
+      "feminicidios_2024": 3,
+      "proporcao_2023": 25.0,
+      "proporcao_2024": 5.88
+    },
+    {
+      "uf": "Rio Grande do Sul",
+      "regiao": "Sul",
+      "homicidios_mulheres_2023": 4,
+      "homicidios_mulheres_2024": 200,
+      "feminicidios_2023": 1,
+      "feminicidios_2024": 3,
+      "proporcao_2023": 25.0,
+      "proporcao_2024": 1.5
+    },
+    {
+      "uf": "Rondônia",
+      "regiao": "Norte",
+      "homicidios_mulheres_2023": 5,
+      "homicidios_mulheres_2024": 40,
+      "feminicidios_2023": 2,
+      "feminicidios_2024": 5,
+      "proporcao_2023": 40.0,
+      "proporcao_2024": 12.5
+    },
+    {
+      "uf": "Roraima",
+      "regiao": "Norte",
+      "homicidios_mulheres_2023": 5,
+      "homicidios_mulheres_2024": 17,
+      "feminicidios_2023": 2,
+      "feminicidios_2024": 5,
+      "proporcao_2023": 40.0,
+      "proporcao_2024": 29.41
+    },
+    {
+      "uf": "Santa Catarina",
+      "regiao": "Sul",
+      "homicidios_mulheres_2023": 3,
+      "homicidios_mulheres_2024": 83,
+      "feminicidios_2023": 1,
+      "feminicidios_2024": 2,
+      "proporcao_2023": 33.33,
+      "proporcao_2024": 2.41
+    },
+    {
+      "uf": "São Paulo",
+      "regiao": "Sudeste",
+      "homicidios_mulheres_2023": 2,
+      "homicidios_mulheres_2024": 421,
+      "feminicidios_2023": 1,
+      "feminicidios_2024": 2,
+      "proporcao_2023": 50.0,
+      "proporcao_2024": 0.48
+    },
+    {
+      "uf": "Sergipe",
+      "regiao": "Nordeste",
+      "homicidios_mulheres_2023": 3,
+      "homicidios_mulheres_2024": 23,
+      "feminicidios_2023": 1,
+      "feminicidios_2024": 2,
+      "proporcao_2023": 33.33,
+      "proporcao_2024": 8.7
+    },
+    {
+      "uf": "Tocantins",
+      "regiao": "Norte",
+      "homicidios_mulheres_2023": 5,
+      "homicidios_mulheres_2024": 28,
+      "feminicidios_2023": 2,
+      "feminicidios_2024": 4,
+      "proporcao_2023": 40.0,
+      "proporcao_2024": 14.29
+    }
+  ]
+}

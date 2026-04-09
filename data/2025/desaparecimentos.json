@@ -1,0 +1,202 @@
+{
+  "fonte": "Fórum Brasileiro de Segurança Pública, 2025",
+  "tabela": "T11",
+  "dados": [
+    {
+      "uf": "Brasil",
+      "regiao": null,
+      "desaparecidos_2023": 37,
+      "desaparecidos_2024": 81873,
+      "variacao_pct": 221178.38
+    },
+    {
+      "uf": "Acre",
+      "regiao": "Norte",
+      "desaparecidos_2023": 40,
+      "desaparecidos_2024": 376,
+      "variacao_pct": 840.0
+    },
+    {
+      "uf": "Alagoas",
+      "regiao": "Nordeste",
+      "desaparecidos_2023": 21,
+      "desaparecidos_2024": 739,
+      "variacao_pct": 3419.05
+    },
+    {
+      "uf": "Amapá",
+      "regiao": "Norte",
+      "desaparecidos_2023": 44,
+      "desaparecidos_2024": 448,
+      "variacao_pct": 918.18
+    },
+    {
+      "uf": "Amazonas",
+      "regiao": "Norte",
+      "desaparecidos_2023": 25,
+      "desaparecidos_2024": 938,
+      "variacao_pct": 3652.0
+    },
+    {
+      "uf": "Bahia",
+      "regiao": "Nordeste",
+      "desaparecidos_2023": 24,
+      "desaparecidos_2024": 4066,
+      "variacao_pct": 16841.67
+    },
+    {
+      "uf": "Ceará",
+      "regiao": "Nordeste",
+      "desaparecidos_2023": 24,
+      "desaparecidos_2024": 2378,
+      "variacao_pct": 9808.33
+    },
+    {
+      "uf": "Distrito Federal",
+      "regiao": "Centro-Oeste",
+      "desaparecidos_2023": 88,
+      "desaparecidos_2024": 2167,
+      "variacao_pct": 2362.5
+    },
+    {
+      "uf": "Espírito Santo",
+      "regiao": "Sudeste",
+      "desaparecidos_2023": 61,
+      "desaparecidos_2024": 2621,
+      "variacao_pct": 4196.72
+    },
+    {
+      "uf": "Goiás",
+      "regiao": "Centro-Oeste",
+      "desaparecidos_2023": 48,
+      "desaparecidos_2024": 3789,
+      "variacao_pct": 7793.75
+    },
+    {
+      "uf": "Maranhão",
+      "regiao": "Nordeste",
+      "desaparecidos_2023": 15,
+      "desaparecidos_2024": 937,
+      "variacao_pct": 6146.67
+    },
+    {
+      "uf": "Mato Grosso",
+      "regiao": "Centro-Oeste",
+      "desaparecidos_2023": 64,
+      "desaparecidos_2024": 2271,
+      "variacao_pct": 3448.44
+    },
+    {
+      "uf": "Mato Grosso do Sul",
+      "regiao": "Centro-Oeste",
+      "desaparecidos_2023": 12,
+      "desaparecidos_2024": 340,
+      "variacao_pct": 2733.33
+    },
+    {
+      "uf": "Minas Gerais",
+      "regiao": "Sudeste",
+      "desaparecidos_2023": 34,
+      "desaparecidos_2024": 6928,
+      "variacao_pct": 20276.47
+    },
+    {
+      "uf": "Pará",
+      "regiao": "Norte",
+      "desaparecidos_2023": 12,
+      "desaparecidos_2024": 1027,
+      "variacao_pct": 8458.33
+    },
+    {
+      "uf": "Paraíba",
+      "regiao": "Nordeste",
+      "desaparecidos_2023": 19,
+      "desaparecidos_2024": 886,
+      "variacao_pct": 4563.16
+    },
+    {
+      "uf": "Paraná",
+      "regiao": "Sul",
+      "desaparecidos_2023": 50,
+      "desaparecidos_2024": 6499,
+      "variacao_pct": 12898.0
+    },
+    {
+      "uf": "Pernambuco",
+      "regiao": "Nordeste",
+      "desaparecidos_2023": 30,
+      "desaparecidos_2024": 2906,
+      "variacao_pct": 9586.67
+    },
+    {
+      "uf": "Piauí",
+      "regiao": "Nordeste",
+      "desaparecidos_2023": 20,
+      "desaparecidos_2024": 616,
+      "variacao_pct": 2980.0
+    },
+    {
+      "uf": "Rio de Janeiro",
+      "regiao": "Sudeste",
+      "desaparecidos_2023": 34,
+      "desaparecidos_2024": 6047,
+      "variacao_pct": 17685.29
+    },
+    {
+      "uf": "Rio Grande do Norte",
+      "regiao": "Nordeste",
+      "desaparecidos_2023": 20,
+      "desaparecidos_2024": 745,
+      "variacao_pct": 3625.0
+    },
+    {
+      "uf": "Rio Grande do Sul",
+      "regiao": "Sul",
+      "desaparecidos_2023": 67,
+      "desaparecidos_2024": 8156,
+      "variacao_pct": 12073.13
+    },
+    {
+      "uf": "Rondônia",
+      "regiao": "Norte",
+      "desaparecidos_2023": 62,
+      "desaparecidos_2024": 1135,
+      "variacao_pct": 1730.65
+    },
+    {
+      "uf": "Roraima",
+      "regiao": "Norte",
+      "desaparecidos_2023": 75,
+      "desaparecidos_2024": 528,
+      "variacao_pct": 604.0
+    },
+    {
+      "uf": "Santa Catarina",
+      "regiao": "Sul",
+      "desaparecidos_2023": 53,
+      "desaparecidos_2024": 4501,
+      "variacao_pct": 8392.45
+    },
+    {
+      "uf": "São Paulo",
+      "regiao": "Sudeste",
+      "desaparecidos_2023": 39,
+      "desaparecidos_2024": 19549,
+      "variacao_pct": 50025.64
+    },
+    {
+      "uf": "Sergipe",
+      "regiao": "Nordeste",
+      "desaparecidos_2023": 26,
+      "desaparecidos_2024": 722,
+      "variacao_pct": 2676.92
+    },
+    {
+      "uf": "Tocantins",
+      "regiao": "Norte",
+      "desaparecidos_2023": 37,
+      "desaparecidos_2024": 558,
+      "variacao_pct": 1408.11
+    }
+  ]
+}

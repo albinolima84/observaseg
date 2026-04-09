@@ -1,0 +1,30 @@
+{
+  "fonte": "Fórum Brasileiro de Segurança Pública, 2025",
+  "grafico": "48",
+  "tabela_origem": "P07",
+  "ano_referencia": 2024,
+  "contexto": "Percentual de participação na autoria de Mortes Violentas Intencionais (MVI) e feminicídios segundo o sexo da vítima. Inclui apenas casos com autoria conhecida registrada pelas secretarias estaduais de segurança pública. A maioria dos casos em que mulheres figuram como autoras em mortes de homens está associada à violência conjugal defensiva. Em 97% dos feminicídios, o autor é do sexo masculino. Os dados revelam a assimetria estrutural da violência de gênero, não sua simetria.",
+  "dados": [
+    {
+      "categoria": "vitimas_mulheres_feminicidio",
+      "label": "Vítimas mulheres — feminicídio",
+      "apenas_autoras_femininas": 1.87,
+      "apenas_autores_masculinos": 97.04,
+      "autoria_multipla": 1.09
+    },
+    {
+      "categoria": "vitimas_mulheres_mvi",
+      "label": "Vítimas mulheres — MVI",
+      "apenas_autoras_femininas": 6.75,
+      "apenas_autores_masculinos": 87.31,
+      "autoria_multipla": 5.93
+    },
+    {
+      "categoria": "vitimas_homens_mvi",
+      "label": "Vítimas homens — MVI",
+      "apenas_autoras_femininas": 4.41,
+      "apenas_autores_masculinos": 91.49,
+      "autoria_multipla": 4.1
+    }
+  ]
+}

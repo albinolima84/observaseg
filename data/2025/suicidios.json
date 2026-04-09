@@ -1,0 +1,230 @@
+{
+  "fonte": "Fórum Brasileiro de Segurança Pública, 2025",
+  "tabela": "T22",
+  "dados": [
+    {
+      "uf": "Brasil",
+      "regiao": null,
+      "total_2023": null,
+      "total_2024": 16446,
+      "taxa_2023": null,
+      "taxa_2024": 7.74
+    },
+    {
+      "uf": "Acre",
+      "regiao": "Norte",
+      "total_2023": null,
+      "total_2024": 93,
+      "taxa_2023": null,
+      "taxa_2024": 10.56
+    },
+    {
+      "uf": "Alagoas",
+      "regiao": "Nordeste",
+      "total_2023": null,
+      "total_2024": 197,
+      "taxa_2023": null,
+      "taxa_2024": 6.12
+    },
+    {
+      "uf": "Amapá",
+      "regiao": "Norte",
+      "total_2023": null,
+      "total_2024": 67,
+      "taxa_2023": null,
+      "taxa_2024": 8.35
+    },
+    {
+      "uf": "Amazonas",
+      "regiao": "Norte",
+      "total_2023": null,
+      "total_2024": 179,
+      "taxa_2023": null,
+      "taxa_2024": 4.18
+    },
+    {
+      "uf": "Bahia",
+      "regiao": "Nordeste",
+      "total_2023": null,
+      "total_2024": 816,
+      "taxa_2023": null,
+      "taxa_2024": 5.49
+    },
+    {
+      "uf": "Ceará",
+      "regiao": "Nordeste",
+      "total_2023": null,
+      "total_2024": 767,
+      "taxa_2023": null,
+      "taxa_2024": 8.31
+    },
+    {
+      "uf": "Distrito Federal",
+      "regiao": "Centro-Oeste",
+      "total_2023": null,
+      "total_2024": 288,
+      "taxa_2023": null,
+      "taxa_2024": 9.66
+    },
+    {
+      "uf": "Espírito Santo",
+      "regiao": "Sudeste",
+      "total_2023": null,
+      "total_2024": 380,
+      "taxa_2023": null,
+      "taxa_2024": 9.26
+    },
+    {
+      "uf": "Goiás",
+      "regiao": "Centro-Oeste",
+      "total_2023": null,
+      "total_2024": 759,
+      "taxa_2023": null,
+      "taxa_2024": 10.33
+    },
+    {
+      "uf": "Maranhão",
+      "regiao": "Nordeste",
+      "total_2023": null,
+      "total_2024": 320,
+      "taxa_2023": null,
+      "taxa_2024": 4.56
+    },
+    {
+      "uf": "Mato Grosso",
+      "regiao": "Centro-Oeste",
+      "total_2023": null,
+      "total_2024": 339,
+      "taxa_2023": null,
+      "taxa_2024": 8.84
+    },
+    {
+      "uf": "Mato Grosso do Sul",
+      "regiao": "Centro-Oeste",
+      "total_2023": null,
+      "total_2024": 287,
+      "taxa_2023": null,
+      "taxa_2024": 9.89
+    },
+    {
+      "uf": "Minas Gerais",
+      "regiao": "Sudeste",
+      "total_2023": null,
+      "total_2024": 1989,
+      "taxa_2023": null,
+      "taxa_2024": 9.33
+    },
+    {
+      "uf": "Pará",
+      "regiao": "Norte",
+      "total_2023": null,
+      "total_2024": 570,
+      "taxa_2023": null,
+      "taxa_2024": 6.58
+    },
+    {
+      "uf": "Paraíba",
+      "regiao": "Nordeste",
+      "total_2023": null,
+      "total_2024": 382,
+      "taxa_2023": null,
+      "taxa_2024": 9.22
+    },
+    {
+      "uf": "Paraná",
+      "regiao": "Sul",
+      "total_2023": null,
+      "total_2024": 912,
+      "taxa_2023": null,
+      "taxa_2024": 7.71
+    },
+    {
+      "uf": "Pernambuco",
+      "regiao": "Nordeste",
+      "total_2023": null,
+      "total_2024": 578,
+      "taxa_2023": null,
+      "taxa_2024": 6.06
+    },
+    {
+      "uf": "Piauí",
+      "regiao": "Nordeste",
+      "total_2023": null,
+      "total_2024": 390,
+      "taxa_2023": null,
+      "taxa_2024": 11.55
+    },
+    {
+      "uf": "Rio de Janeiro",
+      "regiao": "Sudeste",
+      "total_2023": null,
+      "total_2024": 858,
+      "taxa_2023": null,
+      "taxa_2024": 4.98
+    },
+    {
+      "uf": "Rio Grande do Norte",
+      "regiao": "Nordeste",
+      "total_2023": null,
+      "total_2024": 249,
+      "taxa_2023": null,
+      "taxa_2024": 7.23
+    },
+    {
+      "uf": "Rio Grande do Sul",
+      "regiao": "Sul",
+      "total_2023": null,
+      "total_2024": 1516,
+      "taxa_2023": null,
+      "taxa_2024": 13.5
+    },
+    {
+      "uf": "Rondônia",
+      "regiao": "Norte",
+      "total_2023": null,
+      "total_2024": 152,
+      "taxa_2023": null,
+      "taxa_2024": 8.7
+    },
+    {
+      "uf": "Roraima",
+      "regiao": "Norte",
+      "total_2023": null,
+      "total_2024": 78,
+      "taxa_2023": null,
+      "taxa_2024": 10.88
+    },
+    {
+      "uf": "Santa Catarina",
+      "regiao": "Sul",
+      "total_2023": null,
+      "total_2024": 1048,
+      "taxa_2023": null,
+      "taxa_2024": 13.0
+    },
+    {
+      "uf": "São Paulo",
+      "regiao": "Sudeste",
+      "total_2023": null,
+      "total_2024": 2921,
+      "taxa_2023": null,
+      "taxa_2024": 6.35
+    },
+    {
+      "uf": "Sergipe",
+      "regiao": "Nordeste",
+      "total_2023": null,
+      "total_2024": 156,
+      "taxa_2023": null,
+      "taxa_2024": 6.81
+    },
+    {
+      "uf": "Tocantins",
+      "regiao": "Norte",
+      "total_2023": null,
+      "total_2024": 155,
+      "taxa_2023": null,
+      "taxa_2024": 9.83
+    }
+  ]
+}

@@ -1,0 +1,156 @@
+{
+  "fonte": "Fórum Brasileiro de Segurança Pública, 2025",
+  "tabela": "T127",
+  "dados": [
+    {
+      "ano": 2000,
+      "total": 232755,
+      "sistema_penitenciario": 174980,
+      "custodia_policia": 57775
+    },
+    {
+      "ano": 2001,
+      "total": 233859,
+      "sistema_penitenciario": 171366,
+      "custodia_policia": 62493
+    },
+    {
+      "ano": 2002,
+      "total": 239345,
+      "sistema_penitenciario": 181019,
+      "custodia_policia": 58326
+    },
+    {
+      "ano": 2003,
+      "total": 308304,
+      "sistema_penitenciario": 240203,
+      "custodia_policia": 68101
+    },
+    {
+      "ano": 2004,
+      "total": 336358,
+      "sistema_penitenciario": 262710,
+      "custodia_policia": 73648
+    },
+    {
+      "ano": 2005,
+      "total": 361402,
+      "sistema_penitenciario": 296919,
+      "custodia_policia": 64483
+    },
+    {
+      "ano": 2006,
+      "total": 401236,
+      "sistema_penitenciario": 339580,
+      "custodia_policia": 61656
+    },
+    {
+      "ano": 2007,
+      "total": 422373,
+      "sistema_penitenciario": 366359,
+      "custodia_policia": 56014
+    },
+    {
+      "ano": 2008,
+      "total": 451429,
+      "sistema_penitenciario": 393698,
+      "custodia_policia": 57731
+    },
+    {
+      "ano": 2009,
+      "total": 473626,
+      "sistema_penitenciario": 417112,
+      "custodia_policia": 56514
+    },
+    {
+      "ano": 2010,
+      "total": 496251,
+      "sistema_penitenciario": 445705,
+      "custodia_policia": 50546
+    },
+    {
+      "ano": 2011,
+      "total": 514582,
+      "sistema_penitenciario": 471254,
+      "custodia_policia": 43328
+    },
+    {
+      "ano": 2012,
+      "total": 548003,
+      "sistema_penitenciario": 513713,
+      "custodia_policia": 34290
+    },
+    {
+      "ano": 2013,
+      "total": 581507,
+      "sistema_penitenciario": 557286,
+      "custodia_policia": 24221
+    },
+    {
+      "ano": 2014,
+      "total": 622202,
+      "sistema_penitenciario": 584758,
+      "custodia_policia": 37444
+    },
+    {
+      "ano": 2015,
+      "total": 698618,
+      "sistema_penitenciario": 663155,
+      "custodia_policia": 35463
+    },
+    {
+      "ano": 2016,
+      "total": 722120,
+      "sistema_penitenciario": 702385,
+      "custodia_policia": 19735
+    },
+    {
+      "ano": 2017,
+      "total": 722716,
+      "sistema_penitenciario": 704576,
+      "custodia_policia": 18140
+    },
+    {
+      "ano": 2018,
+      "total": 744216,
+      "sistema_penitenciario": 725332,
+      "custodia_policia": 18884
+    },
+    {
+      "ano": 2019,
+      "total": 755274,
+      "sistema_penitenciario": 748009,
+      "custodia_policia": 7265
+    },
+    {
+      "ano": 2020,
+      "total": 759518,
+      "sistema_penitenciario": 753966,
+      "custodia_policia": 5552
+    },
+    {
+      "ano": 2021,
+      "total": 820689,
+      "sistema_penitenciario": 815165,
+      "custodia_policia": 5524
+    },
+    {
+      "ano": 2022,
+      "total": 832295,
+      "sistema_penitenciario": 826740,
+      "custodia_policia": 5555
+    },
+    {
+      "ano": 2023,
+      "total": 852010,
+      "sistema_penitenciario": 846021,
+      "custodia_policia": 5989
+    },
+    {
+      "ano": 2024,
+      "total": 909594,
+      "sistema_penitenciario": 905843,
+      "custodia_policia": 3751
+    }
+  ]
+}

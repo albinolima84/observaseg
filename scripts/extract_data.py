@@ -142,11 +142,11 @@ def find_row_index(rows: list[list], keyword: str, col: int = 0) -> int:
 def extract_mvi_historico(wb, year: int, output_dir: Path) -> None:
     """
     T02: MVI por UF 2012–2024.
-    Estrutura esperada:
-      - Linha com os anos na parte superior
+    Estrutura real do Excel:
+      - Uma linha com os anos repetidos duas vezes:
+          cols 1..N  → anos para absolutos
+          cols N+1.. → os mesmos anos para taxas/100k
       - Coluna 0: nome da UF
-      - Colunas 1..13: absolutos por ano
-      - Colunas 14..26 (aprox): taxas por 100k
     """
     rows = read_sheet(wb, "T02")
 
@@ -164,26 +164,27 @@ def extract_mvi_historico(wb, year: int, output_dir: Path) -> None:
         sys.exit(1)
 
     anos_row = rows[anos_row_idx]
-    # Separar anos (inteiros entre 2000-2030) e suas posições
-    anos_info = [(i, int(v)) for i, v in enumerate(anos_row) if isinstance(v, (int, float)) and 2000 <= v <= 2030]
-    anos = [a for _, a in anos_info]
-    abs_cols = [i for i, _ in anos_info]
 
-    # Taxas costumam estar logo após os absolutos com mesmos anos repetidos,
-    # ou em colunas específicas. Buscamos em linhas posteriores.
-    # Estratégia: localizar segunda ocorrência dos mesmos anos.
+    # Os anos aparecem DUAS vezes na mesma linha (absolutos + taxas).
+    # Separar em dois grupos: primeira ocorrência contínua = absolutos,
+    # segunda ocorrência contínua = taxas.
+    abs_cols: list[int] = []
     taxa_cols: list[int] = []
-    for row in rows[anos_row_idx + 1 :]:
-        candidatos = [(i, int(v)) for i, v in enumerate(row) if isinstance(v, (int, float)) and 2000 <= v <= 2030]
-        if len(candidatos) == len(anos) and [a for _, a in candidatos] == anos:
-            taxa_cols = [i for i, _ in candidatos]
-            break
+    anos_vistos: set[int] = set()
 
-    # Se não encontrou segunda linha de anos, assume que taxas estão
-    # deslocadas em n_anos colunas após os absolutos.
-    if not taxa_cols:
-        offset = len(anos)
-        taxa_cols = [c + offset for c in abs_cols]
+    for i, v in enumerate(anos_row):
+        if not isinstance(v, (int, float)):
+            continue
+        ano = int(v)
+        if not (2000 <= ano <= 2030):
+            continue
+        if ano not in anos_vistos:
+            abs_cols.append(i)
+            anos_vistos.add(ano)
+        else:
+            taxa_cols.append(i)
+
+    anos = [int(anos_row[c]) for c in abs_cols]
 
     dados: list[dict] = []
     for row in rows[anos_row_idx + 1 :]:
@@ -562,27 +563,71 @@ def extract_estupro(wb, year: int, output_dir: Path) -> None:
 
 
 def extract_prisional(wb, year: int, output_dir: Path) -> None:
+    """
+    T127 — estrutura WIDE: anos nas colunas (linha de cabeçalho),
+    categorias nas linhas.
+
+    Linhas esperadas:
+      - Linha com anos (2000…2024) na posição 1..N
+      - "Presos no Sistema Penitenciário" → sistema_penitenciario
+      - "Presos sob Custódia das Polícias" → custodia_policia
+      - "Total de pessoas encarceradas"  → total
+    """
     rows = read_sheet(wb, "T127")
 
-    # Localizar linhas com anos (inteiros entre 2000–2030 na coluna 0)
-    dados: list[dict] = []
-    for row in rows:
-        ano = row[0]
-        if not isinstance(ano, (int, float)) or not (2000 <= int(ano) <= 2030):
-            continue
-        dados.append({
-            "ano": int(ano),
-            "total": _int_or_none(row[1] if len(row) > 1 else None),
-            "condenados": _int_or_none(row[2] if len(row) > 2 else None),
-            "provisorios": _int_or_none(row[3] if len(row) > 3 else None),
-            "taxa_encarceramento": _round_or_none(row[4] if len(row) > 4 else None),
-        })
+    # Localizar linha de cabeçalho com os anos
+    anos_row_idx = None
+    for i, row in enumerate(rows):
+        candidatos = [v for v in row if isinstance(v, (int, float)) and 2000 <= v <= 2030]
+        if len(candidatos) >= 10:
+            anos_row_idx = i
+            break
 
-    if len(dados) < 10:
-        print(f"  ! T127: esperado >= 10 anos, encontrado {len(dados)}. Verifique a estrutura.", file=sys.stderr)
+    if anos_row_idx is None:
+        print("  ! T127: linha de anos não encontrada.", file=sys.stderr)
         return
 
-    dados.sort(key=lambda d: d["ano"])
+    anos_row = rows[anos_row_idx]
+    # Pares (col_index, ano) — ignora a última coluna de variação %
+    anos_cols = [(i, int(v)) for i, v in enumerate(anos_row)
+                 if isinstance(v, (int, float)) and 2000 <= v <= 2030]
+    anos = [a for _, a in anos_cols]
+    col_indices = [i for i, _ in anos_cols]
+
+    # Localizar as três linhas de dados por keyword
+    penit_row: list | None = None
+    custod_row: list | None = None
+    total_row: list | None = None
+
+    for row in rows[anos_row_idx + 1:]:
+        if row[0] is None:
+            continue
+        cell = str(row[0]).lower()
+        if "sistema penitenci" in cell:
+            penit_row = row
+        elif "custódia" in cell or "custodia" in cell:
+            custod_row = row
+        elif "total de pessoas" in cell:
+            total_row = row
+
+    if total_row is None:
+        print("  ! T127: linha 'Total de pessoas encarceradas' não encontrada.", file=sys.stderr)
+        return
+
+    dados: list[dict] = []
+    for i, ano in enumerate(anos):
+        col = col_indices[i]
+        dados.append({
+            "ano": ano,
+            "total": _int_or_none(total_row[col] if col < len(total_row) else None),
+            "sistema_penitenciario": _int_or_none(penit_row[col] if penit_row and col < len(penit_row) else None),
+            "custodia_policia": _int_or_none(custod_row[col] if custod_row and col < len(custod_row) else None),
+        })
+
+    validate(dados, [
+        (len(dados) >= 10, f"T127: esperado >= 10 anos, encontrado {len(dados)}"),
+        (any(d["ano"] == 2000 for d in dados), "T127: ano 2000 não encontrado"),
+    ])
 
     save_json(
         output_dir / "prisional.json",
