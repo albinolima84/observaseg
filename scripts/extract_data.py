@@ -232,14 +232,42 @@ def extract_mvi_estados(wb, year: int, output_dir: Path) -> None:
     """
     T01: MVI por UF com subcategorias (homicídio doloso, latrocínio, LCFM,
     intervenção policial).
+
+    Estrutura real do cabeçalho (linha de anos):
+      col 1  Hom. Doloso 2023 (string '2023 (3)')
+      col 2  Hom. Doloso 2024
+      col 3  Latrocínio 2023
+      col 4  Latrocínio 2024
+      col 5  LCFM 2023
+      col 6  LCFM 2024
+      col 7  Policiais vítimas CVLI 2023
+      col 8  Policiais vítimas CVLI 2024
+      col 9  Intervenção Policial 2023
+      col 10 Intervenção Policial 2024
+      col 11 MVI Total 2023
+      col 12 MVI Total 2024
+      col 13 Taxa 2023
+      col 14 Taxa 2024
+      col 15 Variação %
     """
     rows = read_sheet(wb, "T01")
 
-    # Localizar linha de cabeçalho com "2023" e "2024"
+    # Localizar linha de cabeçalho: procura linha onde o padrão é
+    # alternância entre valores que contêm "2023" e valores == 2024.
+    # O cabeçalho usa '2023 (3)' (string) para os absolutos e int 2023 para taxas.
+    def _is_2023(v) -> bool:
+        if isinstance(v, (int, float)):
+            return int(v) == 2023
+        return isinstance(v, str) and "2023" in v
+
+    def _is_2024(v) -> bool:
+        return isinstance(v, (int, float)) and int(v) == 2024
+
     header_idx = None
     for i, row in enumerate(rows):
-        anos_na_linha = [v for v in row if isinstance(v, (int, float)) and v in (2023, 2024)]
-        if len(anos_na_linha) >= 4:  # espera ao menos 4 ocorrências (2 por categoria)
+        count_2024 = sum(1 for v in row if _is_2024(v))
+        count_2023 = sum(1 for v in row if _is_2023(v))
+        if count_2024 >= 4 and count_2023 >= 2:
             header_idx = i
             break
 
@@ -247,12 +275,9 @@ def extract_mvi_estados(wb, year: int, output_dir: Path) -> None:
         print("  ! T01: cabeçalho com 2023/2024 não encontrado. Pulando.", file=sys.stderr)
         return
 
-    # Mapear colunas por posição
-    # A estrutura típica: UF | Hom. Doloso 23 | Hom. Doloso 24 | Latr. 23 | Latr. 24 | ...
-    # Usa heurística: pares de colunas por categoria
     header = rows[header_idx]
-    col_2023 = [i for i, v in enumerate(header) if v == 2023]
-    col_2024 = [i for i, v in enumerate(header) if v == 2024]
+    col_2023 = [i for i, v in enumerate(header) if _is_2023(v)]
+    col_2024 = [i for i, v in enumerate(header) if _is_2024(v)]
 
     # Assume mesma quantidade de colunas para cada ano e mesma ordem
     dados: list[dict] = []
@@ -269,18 +294,21 @@ def extract_mvi_estados(wb, year: int, output_dir: Path) -> None:
         dados.append({
             "uf": uf_str,
             "regiao": _regiao(uf_str),
+            # Índices: 0=Hom.Doloso  1=Latrocínio  2=LCFM
+            #          3=Policiais vítimas CVLI (descartado)
+            #          4=Intervenção Policial  5=MVI Total  6=Taxa
             "homicidio_doloso_2023": get(col_2023, 0),
             "homicidio_doloso_2024": get(col_2024, 0),
             "latrocinio_2023": get(col_2023, 1),
             "latrocinio_2024": get(col_2024, 1),
             "lcfm_2023": get(col_2023, 2),
             "lcfm_2024": get(col_2024, 2),
-            "intervencao_policial_2023": get(col_2023, 3),
-            "intervencao_policial_2024": get(col_2024, 3),
-            "mvi_total_2023": get(col_2023, 4),
-            "mvi_total_2024": get(col_2024, 4),
-            "taxa_2023": _round_or_none(row[col_2023[5]] if len(col_2023) > 5 and col_2023[5] < len(row) else None),
-            "taxa_2024": _round_or_none(row[col_2024[5]] if len(col_2024) > 5 and col_2024[5] < len(row) else None),
+            "intervencao_policial_2023": get(col_2023, 4),
+            "intervencao_policial_2024": get(col_2024, 4),
+            "mvi_total_2023": get(col_2023, 5),
+            "mvi_total_2024": get(col_2024, 5),
+            "taxa_2023": _round_or_none(row[col_2023[6]] if len(col_2023) > 6 and col_2023[6] < len(row) else None),
+            "taxa_2024": _round_or_none(row[col_2024[6]] if len(col_2024) > 6 and col_2024[6] < len(row) else None),
         })
 
     # Calcular variação percentual
