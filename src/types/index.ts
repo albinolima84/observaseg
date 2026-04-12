@@ -147,10 +147,9 @@ export interface Estupro {
 /** Tabela T127 — Evolução população prisional Brasil 2000–2024 */
 export interface PrisionalItem {
   ano: number;
-  total: number;
-  condenados: number | null;
-  provisorios: number | null;
-  taxa_encarceramento: number | null;  // por 100k habitantes
+  total: number | null;
+  sistema_penitenciario: number | null;  // presos no sistema penitenciário
+  custodia_policia: number | null;       // presos sob custódia das polícias
 }
 
 export interface Prisional {

@@ -460,54 +460,68 @@ def extract_feminicidio_hist(wb, year: int, output_dir: Path) -> None:
 
 
 def extract_letalidade(wb, year: int, output_dir: Path) -> None:
-    dados: dict[str, dict] = {}
-
-    for tabela in ("T09", "T10"):
-        if tabela not in wb.sheetnames:
-            print(f"  ! {tabela}: aba não encontrada. Pulando.", file=sys.stderr)
-            continue
-        rows = read_sheet(wb, tabela)
-
-        header_idx = None
-        for i, row in enumerate(rows):
-            anos = [v for v in row if isinstance(v, (int, float)) and v in (2023, 2024)]
-            if len(anos) >= 2:
-                header_idx = i
-                break
-
-        if header_idx is None:
-            continue
-
-        header = rows[header_idx]
-        col_2023 = [i for i, v in enumerate(header) if v == 2023]
-        col_2024 = [i for i, v in enumerate(header) if v == 2024]
-
-        for row in rows[header_idx + 1 :]:
-            uf = row[0]
-            if uf is None or str(uf).strip() not in UFS:
-                continue
-            uf_str = str(uf).strip()
-
-            if uf_str not in dados:
-                dados[uf_str] = {"uf": uf_str, "regiao": _regiao(uf_str)}
-
-            if tabela == "T09":
-                dados[uf_str]["mortes_2023"] = _int_or_none(row[col_2023[0]] if col_2023 else None)
-                dados[uf_str]["mortes_2024"] = _int_or_none(row[col_2024[0]] if col_2024 else None)
-            else:  # T10 — proporção em relação às MVI
-                dados[uf_str]["proporcao_mvi_2023"] = _round_or_none(row[col_2023[0]] if col_2023 else None)
-                dados[uf_str]["proporcao_mvi_2024"] = _round_or_none(row[col_2024[0]] if col_2024 else None)
-
-    if not dados:
-        print("  ! T09/T10: nenhum dado extraído.", file=sys.stderr)
+    """
+    T10 como fonte primária — usa headers com inteiros (sem '2023 (3)').
+    Estrutura T10:
+      col 1: MVI 2023   col 2: MVI 2024
+      col 3: MDIP 2023  col 4: MDIP 2024   (Mortes Decorrentes de Intervenção Policial)
+      col 5: % 2023     col 6: % 2024
+    T09 é ignorado — T10 já contém o total MDIP.
+    """
+    if "T10" not in wb.sheetnames:
+        print("  ! T10: aba não encontrada. Pulando.", file=sys.stderr)
         return
+
+    rows = read_sheet(wb, "T10")
+
+    # T10 usa inteiros puros (2023, 2024) — sem o problema '2023 (3)'
+    header_idx = None
+    for i, row in enumerate(rows):
+        count_2023 = sum(1 for v in row if isinstance(v, (int, float)) and int(v) == 2023)
+        count_2024 = sum(1 for v in row if isinstance(v, (int, float)) and int(v) == 2024)
+        if count_2023 >= 3 and count_2024 >= 3:
+            header_idx = i
+            break
+
+    if header_idx is None:
+        print("  ! T10: cabeçalho com 2023/2024 não encontrado. Pulando.", file=sys.stderr)
+        return
+
+    header = rows[header_idx]
+    col_2023 = [i for i, v in enumerate(header) if isinstance(v, (int, float)) and int(v) == 2023]
+    col_2024 = [i for i, v in enumerate(header) if isinstance(v, (int, float)) and int(v) == 2024]
+    # Ordem esperada: [MVI, MDIP, Proporção]  → índices 0, 1, 2
+
+    dados: list[dict] = []
+    for row in rows[header_idx + 1:]:
+        uf = row[0]
+        if uf is None or str(uf).strip() not in UFS:
+            continue
+        uf_str = str(uf).strip()
+
+        def get(cols, idx):
+            return row[cols[idx]] if idx < len(cols) and cols[idx] < len(row) else None
+
+        dados.append({
+            "uf": uf_str,
+            "regiao": _regiao(uf_str),
+            "mortes_2023": _int_or_none(get(col_2023, 1)),       # MDIP absoluto 2023
+            "mortes_2024": _int_or_none(get(col_2024, 1)),       # MDIP absoluto 2024
+            "proporcao_mvi_2023": _round_or_none(get(col_2023, 2)),  # % de MVI 2023
+            "proporcao_mvi_2024": _round_or_none(get(col_2024, 2)),  # % de MVI 2024
+        })
+
+    validate(dados, [
+        (len(dados) >= 27, f"T10: esperado 28 linhas, encontrado {len(dados)}"),
+        (any(d["uf"] == "Brasil" for d in dados), "T10: linha 'Brasil' não encontrada"),
+    ])
 
     save_json(
         output_dir / "letalidade.json",
         {
             "fonte": f"Fórum Brasileiro de Segurança Pública, {year}",
             "tabelas": ["T09", "T10"],
-            "dados": list(dados.values()),
+            "dados": dados,
         },
         "T09+T10 Letalidade policial",
     )

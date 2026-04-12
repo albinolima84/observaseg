@@ -8,222 +8,226 @@
     {
       "uf": "Brasil",
       "regiao": null,
-      "mortes_2023": 3,
-      "mortes_2024": 213,
-      "proporcao_mvi_2023": 46441.0,
-      "proporcao_mvi_2024": 44127.0
+      "mortes_2023": 6413,
+      "mortes_2024": 6243,
+      "proporcao_mvi_2023": 13.81,
+      "proporcao_mvi_2024": 14.15
     },
     {
       "uf": "Acre",
       "regiao": "Norte",
-      "mortes_2023": 2,
-      "mortes_2024": null,
-      "proporcao_mvi_2023": 214.0,
-      "proporcao_mvi_2024": 179.0
+      "mortes_2023": 15,
+      "mortes_2024": 10,
+      "proporcao_mvi_2023": 7.01,
+      "proporcao_mvi_2024": 5.59
     },
     {
       "uf": "Alagoas",
       "regiao": "Nordeste",
-      "mortes_2023": 2,
-      "mortes_2024": 2,
-      "proporcao_mvi_2023": 1210.0,
-      "proporcao_mvi_2024": 1141.0
-    },
-    {
-      "uf": "Amazonas",
-      "regiao": "Norte",
-      "mortes_2023": 1,
-      "mortes_2024": 3,
-      "proporcao_mvi_2023": 1406.0,
-      "proporcao_mvi_2024": 1173.0
-    },
-    {
-      "uf": "Bahia",
-      "regiao": "Nordeste",
-      "mortes_2023": 11,
-      "mortes_2024": 60,
-      "proporcao_mvi_2023": 6579.0,
-      "proporcao_mvi_2024": 6036.0
-    },
-    {
-      "uf": "Ceará",
-      "regiao": "Nordeste",
-      "mortes_2023": 2,
-      "mortes_2024": 1,
-      "proporcao_mvi_2023": 3114.0,
-      "proporcao_mvi_2024": 3467.0
-    },
-    {
-      "uf": "Distrito Federal",
-      "regiao": "Centro-Oeste",
-      "mortes_2023": 1,
-      "mortes_2024": 1,
-      "proporcao_mvi_2023": 311.0,
-      "proporcao_mvi_2024": 266.0
-    },
-    {
-      "uf": "Espírito Santo",
-      "regiao": "Sudeste",
-      "mortes_2023": 2,
-      "mortes_2024": null,
-      "proporcao_mvi_2023": 1096.0,
-      "proporcao_mvi_2024": 980.0
-    },
-    {
-      "uf": "Goiás",
-      "regiao": "Centro-Oeste",
-      "mortes_2023": 7,
-      "mortes_2024": null,
-      "proporcao_mvi_2023": 1636.0,
-      "proporcao_mvi_2024": 1379.0
-    },
-    {
-      "uf": "Maranhão",
-      "regiao": "Nordeste",
-      "mortes_2023": 1,
-      "mortes_2024": 3,
-      "proporcao_mvi_2023": 1897.0,
-      "proporcao_mvi_2024": 2129.0
-    },
-    {
-      "uf": "Mato Grosso",
-      "regiao": "Centro-Oeste",
-      "mortes_2023": 6,
-      "mortes_2024": 17,
-      "proporcao_mvi_2023": 1159.0,
-      "proporcao_mvi_2024": 1142.0
-    },
-    {
-      "uf": "Minas Gerais",
-      "regiao": "Sudeste",
-      "mortes_2023": 1,
-      "mortes_2024": 7,
-      "proporcao_mvi_2023": 3050.0,
-      "proporcao_mvi_2024": 3214.0
-    },
-    {
-      "uf": "Pará",
-      "regiao": "Norte",
-      "mortes_2023": 6,
-      "mortes_2024": 54,
-      "proporcao_mvi_2023": 2745.0,
-      "proporcao_mvi_2024": 2560.0
-    },
-    {
-      "uf": "Paraíba",
-      "regiao": "Nordeste",
-      "mortes_2023": 2,
-      "mortes_2024": 10,
-      "proporcao_mvi_2023": 1064.0,
-      "proporcao_mvi_2024": 1060.0
-    },
-    {
-      "uf": "Paraná",
-      "regiao": "Sul",
-      "mortes_2023": 3,
-      "mortes_2024": 3,
-      "proporcao_mvi_2023": 2263.0,
-      "proporcao_mvi_2024": 2170.0
-    },
-    {
-      "uf": "Pernambuco",
-      "regiao": "Nordeste",
-      "mortes_2023": 1,
-      "mortes_2024": 7,
-      "proporcao_mvi_2023": 3641.0,
-      "proporcao_mvi_2024": 3453.0
-    },
-    {
-      "uf": "Piauí",
-      "regiao": "Nordeste",
-      "mortes_2023": 1,
-      "mortes_2024": 4,
-      "proporcao_mvi_2023": 737.0,
-      "proporcao_mvi_2024": 685.0
-    },
-    {
-      "uf": "Rio de Janeiro",
-      "regiao": "Sudeste",
-      "mortes_2023": 5,
-      "mortes_2024": null,
-      "proporcao_mvi_2023": 4270.0,
-      "proporcao_mvi_2024": 3809.0
-    },
-    {
-      "uf": "Rio Grande do Norte",
-      "regiao": "Nordeste",
-      "mortes_2023": 3,
-      "mortes_2024": 5,
-      "proporcao_mvi_2023": 1042.0,
-      "proporcao_mvi_2024": 833.0
-    },
-    {
-      "uf": "Rio Grande do Sul",
-      "regiao": "Sul",
-      "mortes_2023": 1,
-      "mortes_2024": 3,
-      "proporcao_mvi_2023": 1982.0,
-      "proporcao_mvi_2024": 1687.0
-    },
-    {
-      "uf": "Rondônia",
-      "regiao": "Norte",
-      "mortes_2023": 1,
-      "mortes_2024": null,
-      "proporcao_mvi_2023": 455.0,
-      "proporcao_mvi_2024": 455.0
-    },
-    {
-      "uf": "Roraima",
-      "regiao": "Norte",
-      "mortes_2023": 2,
-      "mortes_2024": 1,
-      "proporcao_mvi_2023": 177.0,
-      "proporcao_mvi_2024": 133.0
-    },
-    {
-      "uf": "Santa Catarina",
-      "regiao": "Sul",
-      "mortes_2023": 1,
-      "mortes_2024": 5,
-      "proporcao_mvi_2023": 674.0,
-      "proporcao_mvi_2024": 685.0
-    },
-    {
-      "uf": "São Paulo",
-      "regiao": "Sudeste",
-      "mortes_2023": 1,
-      "mortes_2024": 27,
-      "proporcao_mvi_2023": 3480.0,
-      "proporcao_mvi_2024": 3751.0
-    },
-    {
-      "uf": "Sergipe",
-      "regiao": "Nordeste",
-      "mortes_2023": 10,
-      "mortes_2024": null,
-      "proporcao_mvi_2023": 689.0,
-      "proporcao_mvi_2024": 522.0
-    },
-    {
-      "uf": "Tocantins",
-      "regiao": "Norte",
-      "mortes_2023": 3,
-      "mortes_2024": null,
-      "proporcao_mvi_2023": 430.0,
-      "proporcao_mvi_2024": 312.0
+      "mortes_2023": 66,
+      "mortes_2024": 75,
+      "proporcao_mvi_2023": 5.45,
+      "proporcao_mvi_2024": 6.57
     },
     {
       "uf": "Amapá",
       "regiao": "Norte",
-      "proporcao_mvi_2023": 519.0,
-      "proporcao_mvi_2024": 362.0
+      "mortes_2023": 183,
+      "mortes_2024": 137,
+      "proporcao_mvi_2023": 35.26,
+      "proporcao_mvi_2024": 37.85
+    },
+    {
+      "uf": "Amazonas",
+      "regiao": "Norte",
+      "mortes_2023": 59,
+      "mortes_2024": 43,
+      "proporcao_mvi_2023": 4.2,
+      "proporcao_mvi_2024": 3.67
+    },
+    {
+      "uf": "Bahia",
+      "regiao": "Nordeste",
+      "mortes_2023": 1700,
+      "mortes_2024": 1556,
+      "proporcao_mvi_2023": 25.84,
+      "proporcao_mvi_2024": 25.78
+    },
+    {
+      "uf": "Ceará",
+      "regiao": "Nordeste",
+      "mortes_2023": 144,
+      "mortes_2024": 189,
+      "proporcao_mvi_2023": 4.62,
+      "proporcao_mvi_2024": 5.45
+    },
+    {
+      "uf": "Distrito Federal",
+      "regiao": "Centro-Oeste",
+      "mortes_2023": 27,
+      "mortes_2024": 15,
+      "proporcao_mvi_2023": 8.68,
+      "proporcao_mvi_2024": 5.64
+    },
+    {
+      "uf": "Espírito Santo",
+      "regiao": "Sudeste",
+      "mortes_2023": 65,
+      "mortes_2024": 78,
+      "proporcao_mvi_2023": 5.93,
+      "proporcao_mvi_2024": 7.96
+    },
+    {
+      "uf": "Goiás",
+      "regiao": "Centro-Oeste",
+      "mortes_2023": 517,
+      "mortes_2024": 372,
+      "proporcao_mvi_2023": 31.6,
+      "proporcao_mvi_2024": 26.98
+    },
+    {
+      "uf": "Maranhão",
+      "regiao": "Nordeste",
+      "mortes_2023": 62,
+      "mortes_2024": 76,
+      "proporcao_mvi_2023": 3.27,
+      "proporcao_mvi_2024": 3.57
+    },
+    {
+      "uf": "Mato Grosso",
+      "regiao": "Centro-Oeste",
+      "mortes_2023": 223,
+      "mortes_2024": 214,
+      "proporcao_mvi_2023": 19.24,
+      "proporcao_mvi_2024": 18.74
     },
     {
       "uf": "Mato Grosso do Sul",
       "regiao": "Centro-Oeste",
-      "proporcao_mvi_2023": 601.0,
-      "proporcao_mvi_2024": 544.0
+      "mortes_2023": 131,
+      "mortes_2024": 86,
+      "proporcao_mvi_2023": 21.8,
+      "proporcao_mvi_2024": 15.81
+    },
+    {
+      "uf": "Minas Gerais",
+      "regiao": "Sudeste",
+      "mortes_2023": 137,
+      "mortes_2024": 200,
+      "proporcao_mvi_2023": 4.49,
+      "proporcao_mvi_2024": 6.22
+    },
+    {
+      "uf": "Pará",
+      "regiao": "Norte",
+      "mortes_2023": 537,
+      "mortes_2024": 606,
+      "proporcao_mvi_2023": 19.56,
+      "proporcao_mvi_2024": 23.67
+    },
+    {
+      "uf": "Paraíba",
+      "regiao": "Nordeste",
+      "mortes_2023": 69,
+      "mortes_2024": 55,
+      "proporcao_mvi_2023": 6.48,
+      "proporcao_mvi_2024": 5.19
+    },
+    {
+      "uf": "Paraná",
+      "regiao": "Sul",
+      "mortes_2023": 341,
+      "mortes_2024": 400,
+      "proporcao_mvi_2023": 15.07,
+      "proporcao_mvi_2024": 18.43
+    },
+    {
+      "uf": "Pernambuco",
+      "regiao": "Nordeste",
+      "mortes_2023": 118,
+      "mortes_2024": 68,
+      "proporcao_mvi_2023": 3.24,
+      "proporcao_mvi_2024": 1.97
+    },
+    {
+      "uf": "Piauí",
+      "regiao": "Nordeste",
+      "mortes_2023": 25,
+      "mortes_2024": 30,
+      "proporcao_mvi_2023": 3.39,
+      "proporcao_mvi_2024": 4.38
+    },
+    {
+      "uf": "Rio de Janeiro",
+      "regiao": "Sudeste",
+      "mortes_2023": 871,
+      "mortes_2024": 703,
+      "proporcao_mvi_2023": 20.4,
+      "proporcao_mvi_2024": 18.46
+    },
+    {
+      "uf": "Rio Grande do Norte",
+      "regiao": "Nordeste",
+      "mortes_2023": 92,
+      "mortes_2024": 83,
+      "proporcao_mvi_2023": 8.83,
+      "proporcao_mvi_2024": 9.96
+    },
+    {
+      "uf": "Rio Grande do Sul",
+      "regiao": "Sul",
+      "mortes_2023": 154,
+      "mortes_2024": 147,
+      "proporcao_mvi_2023": 7.77,
+      "proporcao_mvi_2024": 8.71
+    },
+    {
+      "uf": "Rondônia",
+      "regiao": "Norte",
+      "mortes_2023": 9,
+      "mortes_2024": 8,
+      "proporcao_mvi_2023": 1.98,
+      "proporcao_mvi_2024": 1.76
+    },
+    {
+      "uf": "Roraima",
+      "regiao": "Norte",
+      "mortes_2023": 13,
+      "mortes_2024": 5,
+      "proporcao_mvi_2023": 7.34,
+      "proporcao_mvi_2024": 3.76
+    },
+    {
+      "uf": "Santa Catarina",
+      "regiao": "Sul",
+      "mortes_2023": 79,
+      "mortes_2024": 79,
+      "proporcao_mvi_2023": 11.72,
+      "proporcao_mvi_2024": 11.53
+    },
+    {
+      "uf": "São Paulo",
+      "regiao": "Sudeste",
+      "mortes_2023": 504,
+      "mortes_2024": 813,
+      "proporcao_mvi_2023": 14.48,
+      "proporcao_mvi_2024": 21.67
+    },
+    {
+      "uf": "Sergipe",
+      "regiao": "Nordeste",
+      "mortes_2023": 229,
+      "mortes_2024": 145,
+      "proporcao_mvi_2023": 33.24,
+      "proporcao_mvi_2024": 27.78
+    },
+    {
+      "uf": "Tocantins",
+      "regiao": "Norte",
+      "mortes_2023": 43,
+      "mortes_2024": 50,
+      "proporcao_mvi_2023": 10.0,
+      "proporcao_mvi_2024": 16.03
     }
   ]
 }
