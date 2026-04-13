@@ -1,9 +1,11 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { StatCard } from "@/components/ui/StatCard";
+import { InsightCard } from "@/components/ui/InsightCard";
 import { FonteTag } from "@/components/ui/FonteTag";
-import { getGastos } from "@/lib/data";
+import { getGastos, getMviEstados } from "@/lib/data";
 import { fmtDecimal, fmtVariacao, corVariacaoNeutra } from "@/lib/formatters";
+import { GastoMviScatter } from "./GastoMviScatter";
 
 export const metadata = {
   title: "Gastos Públicos",
@@ -21,15 +23,31 @@ function fmtReais(v: number | null | undefined): string {
 
 export default function GastosPublicosPage() {
   const gastos = getGastos();
-  const brasil = gastos.dados.find((d) => d.uf === "Brasil")!;
-
-  const variacao = brasil.total_2023 && brasil.total_2024
-    ? +((brasil.total_2024 - brasil.total_2023) / brasil.total_2023 * 100).toFixed(2)
-    : undefined;
+  const mviEstados = getMviEstados();
 
   const porUF = gastos.dados
-    .filter((d) => d.uf !== "Brasil" && d.regiao !== null)
+    .filter((d) => d.regiao !== null)
     .sort((a, b) => (b.total_2024 ?? 0) - (a.total_2024 ?? 0));
+
+  const total2024 = porUF.reduce((s, d) => s + (d.total_2024 ?? 0), 0);
+  const total2023 = porUF.reduce((s, d) => s + (d.total_2023 ?? 0), 0);
+  const variacao = total2023 > 0
+    ? +((total2024 - total2023) / total2023 * 100).toFixed(2)
+    : undefined;
+
+  // Dados para scatter: cruzar gasto com taxa MVI por estado
+  const scatterDados = porUF.flatMap((g) => {
+    const mvi = mviEstados.dados.find((m) => m.uf === g.uf);
+    if (!g.total_2024 || !mvi?.taxa_2024) return [];
+    return [{ uf: g.uf, gasto: g.total_2024, taxa: mvi.taxa_2024 }];
+  });
+
+  const mediaGasto = scatterDados.length
+    ? scatterDados.reduce((s, d) => s + d.gasto, 0) / scatterDados.length
+    : 0;
+  const mediaTaxa = scatterDados.length
+    ? scatterDados.reduce((s, d) => s + d.taxa, 0) / scatterDados.length
+    : 0;
 
   return (
     <>
@@ -58,7 +76,7 @@ export default function GastosPublicosPage() {
         <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14">
           <StatCard
             titulo="Total Brasil 2024"
-            valor={fmtReais(brasil.total_2024)}
+            valor={fmtReais(total2024)}
             variacao={variacao}
             descricao="gastos consolidados"
             fonte="FBSP · T96"
@@ -66,14 +84,14 @@ export default function GastosPublicosPage() {
           />
           <StatCard
             titulo="Total Brasil 2023"
-            valor={fmtReais(brasil.total_2023)}
+            valor={fmtReais(total2023)}
             descricao="para comparação"
             fonte="FBSP · T96"
           />
           <StatCard
-            titulo="Gasto per capita 2024"
-            valor={brasil.per_capita_2024 != null ? `R$ ${fmtDecimal(brasil.per_capita_2024, 0)}` : "—"}
-            descricao="por habitante no Brasil"
+            titulo="Estados com dados"
+            valor={String(porUF.length)}
+            descricao="unidades da federação"
             fonte="FBSP · T96"
           />
           <StatCard
@@ -85,6 +103,41 @@ export default function GastosPublicosPage() {
             descricao="estado com maior gasto per capita"
             fonte="FBSP · T96"
           />
+        </section>
+
+        {/* ── Insights ── */}
+        <section className="grid md:grid-cols-2 gap-4 mb-14">
+          <InsightCard
+            titulo="Gastar mais não garante menos violência"
+            dado="Correlação fraca"
+            contexto="Estados com os maiores orçamentos absolutos (SP, PR, RS) não são necessariamente os mais seguros. Bahia e Pernambuco gastam volumes expressivos e ainda registram taxas MVI acima da média. O gráfico abaixo mostra que a relação entre investimento e taxa de violência é difusa — outros fatores estruturais dominam o resultado."
+            fonte="Fórum Brasileiro de Segurança Pública"
+            tabela="T96"
+            anoReferencia={2024}
+          />
+          <InsightCard
+            titulo="São Paulo: maior gasto, taxa abaixo da média"
+            dado="R$ 14,6 bi"
+            contexto="Com R$ 14,6 bilhões em gastos de segurança — quase 10 vezes mais que o segundo colocado —, São Paulo é um caso à parte. Sua taxa MVI de 6,9/100k fica bem abaixo da média nacional (20,8/100k). Mas isolar o efeito do investimento é difícil: SP também tem maior PIB, maior urbanização e estrutura policial mais consolidada."
+            fonte="Fórum Brasileiro de Segurança Pública"
+            tabela="T96"
+            anoReferencia={2024}
+          />
+        </section>
+
+        {/* ── Scatter gasto vs. MVI ── */}
+        <section
+          className="rounded-lg p-6 mb-14"
+          style={{ backgroundColor: "var(--surface)", border: "1px solid var(--border)" }}
+        >
+          <GastoMviScatter
+            dados={scatterDados}
+            mediaGasto={mediaGasto}
+            mediaTaxa={mediaTaxa}
+          />
+          <div className="mt-4">
+            <FonteTag fonte="Fórum Brasileiro de Segurança Pública" tabela="T96 · T01" />
+          </div>
         </section>
 
         <section className="mb-14">

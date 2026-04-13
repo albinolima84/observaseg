@@ -188,6 +188,21 @@ export default function Home() {
                 titulo: "Gastos Públicos",
                 desc: "R$ 153 bi em segurança pública — análise por UF",
               },
+              {
+                href: "/temas/suicidios",
+                titulo: "Suicídios",
+                desc: "16.446 mortes em 2024 — a violência invisível nos dados de segurança",
+              },
+              {
+                href: "/temas/desaparecimentos",
+                titulo: "Desaparecimentos",
+                desc: "81.873 pessoas desaparecidas em 2024 — primeiro levantamento nacional",
+              },
+              {
+                href: "/temas/violencia-patrimonial",
+                titulo: "Violência Patrimonial",
+                desc: "374 mil roubos de celular e 126 mil roubos de veículo em 2024",
+              },
             ].map((tema) => (
               <a
                 key={tema.href}

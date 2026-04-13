@@ -1,6 +1,7 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { StatCard } from "@/components/ui/StatCard";
+import { InsightCard } from "@/components/ui/InsightCard";
 import { getLetalidade } from "@/lib/data";
 import { fmtInteiro, fmtDecimal, fmtVariacao, corVariacaoMVI } from "@/lib/formatters";
 import { FonteTag } from "@/components/ui/FonteTag";
@@ -71,6 +72,26 @@ export default function LetalidadePolicialPage() {
             valor={`${fmtDecimal(brasil.proporcao_mvi_2023)}%`}
             descricao="para comparação"
             fonte="FBSP · T10"
+          />
+        </section>
+
+        {/* ── Insights ── */}
+        <section className="grid md:grid-cols-2 gap-4 mb-14">
+          <InsightCard
+            titulo="São Paulo: letalidade policial avança 61% em um ano"
+            dado="+61,1%"
+            contexto="São Paulo passou de 504 para 813 mortes por intervenção policial em 2024 — o maior salto absoluto entre todos os estados. A proporção das MVI atribuída à polícia saltou de 14,5% para 21,7%. O estado, que antes se destacava por baixa letalidade relativa, agora se aproxima da média nacional."
+            fonte="Fórum Brasileiro de Segurança Pública"
+            tabela="T10"
+            anoReferencia={2024}
+          />
+          <InsightCard
+            titulo="Bahia concentra 1 em cada 4 mortes por intervenção policial"
+            dado="24,9%"
+            contexto="Com 1.556 mortes, a Bahia responde por quase um quarto de toda a letalidade policial do país, mesmo tendo reduzido o número em relação a 2023 (1.700). A concentração é estrutural: as 3 UFs com mais mortes (BA, SP, RJ) somam 49% do total nacional de 6.243."
+            fonte="Fórum Brasileiro de Segurança Pública"
+            tabela="T10"
+            anoReferencia={2024}
           />
         </section>
 

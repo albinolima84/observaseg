@@ -1,6 +1,7 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { StatCard } from "@/components/ui/StatCard";
+import { InsightCard } from "@/components/ui/InsightCard";
 import { FonteTag } from "@/components/ui/FonteTag";
 import { getMviHistorico, getMviEstados } from "@/lib/data";
 import { fmtInteiro, fmtDecimal, fmtVariacao, corVariacaoMVI } from "@/lib/formatters";
@@ -179,6 +180,26 @@ export default function ViolenciaLetalPage() {
             })}
           </div>
           <FonteTag fonte="Fórum Brasileiro de Segurança Pública" tabela="T01" />
+        </section>
+
+        {/* ── Insights ── */}
+        <section className="grid md:grid-cols-2 gap-4 mb-14">
+          <InsightCard
+            titulo="LCFM: o único componente que cresceu em 2024"
+            dado="+21,0%"
+            contexto="A Lesão Corporal Seguida de Morte (LCFM) passou de 628 para 760 casos — alta de 21% enquanto homicídio doloso (−5,8%), latrocínio (−3,7%) e mortes por intervenção policial (−2,7%) caíram. O LCFM está associado a violência interpessoal e doméstica, sinalizando uma dinâmica de violência que não responde às mesmas políticas que reduziram os homicídios."
+            fonte="Fórum Brasileiro de Segurança Pública"
+            tabela="T01"
+            anoReferencia={2024}
+          />
+          <InsightCard
+            titulo="Queda no MVI nacional mascara pioras regionais"
+            dado="−5,0%"
+            contexto="O Brasil registrou 44.127 MVI em 2024, queda de 5% frente a 2023. Mas a média nacional esconde trajetórias opostas: estados do Norte e Centro-Oeste concentram as maiores taxas e, em vários casos, registraram alta. A redução é puxada principalmente por Bahia, Pernambuco e São Paulo em volume absoluto."
+            fonte="Fórum Brasileiro de Segurança Pública"
+            tabela="T01"
+            anoReferencia={2024}
+          />
         </section>
 
         {/* ── Ranking por taxa ── */}
