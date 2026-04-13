@@ -15,7 +15,7 @@ export function FonteTag({ fonte, tabela, url }: FonteTagProps) {
   return (
     <p
       className="text-xs mt-3"
-      style={{ color: "var(--text-dim)", fontFamily: "var(--font-mono)" }}
+      style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
     >
       Fonte:{" "}
       {url ? (

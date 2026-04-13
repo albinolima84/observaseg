@@ -98,6 +98,8 @@ export function Header() {
             <button
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
+              aria-controls="nav-temas"
+              aria-label="Abrir menu de temas"
               className="flex items-center gap-2 px-3 py-1.5 rounded text-xs transition-colors"
               style={{
                 fontFamily: "var(--font-mono)",
@@ -149,6 +151,7 @@ export function Header() {
             boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
           }}
         >
+          <nav id="nav-temas" aria-label="Temas do anuário">
           <div className="max-w-6xl mx-auto px-4 py-5">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1">
               {TEMAS.map((t) => (
@@ -181,6 +184,7 @@ export function Header() {
               ))}
             </div>
           </div>
+          </nav>
         </div>
       )}
     </div>

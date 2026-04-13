@@ -2,6 +2,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { StatCard } from "@/components/ui/StatCard";
 import { FonteTag } from "@/components/ui/FonteTag";
+import { NotaMetodologica } from "@/components/ui/NotaMetodologica";
 import { getEstupro } from "@/lib/data";
 import { fmtInteiro, fmtDecimal, fmtVariacao, corVariacaoMVI } from "@/lib/formatters";
 
@@ -28,11 +29,11 @@ export default function ViolenciaSexualPage() {
       <Header />
       <main className="max-w-6xl mx-auto px-4 py-12">
 
-        <p className="text-xs mb-6" style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-          <a href="/" style={{ color: "var(--text-dim)" }}>Início</a>
+        <nav aria-label="Navegação estrutural" className="text-xs mb-6" style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
+          <a href="/" style={{ color: "var(--text-muted)" }}>Início</a>
           {" / "}
-          <span style={{ color: "var(--text)" }}>Violência Sexual</span>
-        </p>
+          <span aria-current="page" style={{ color: "var(--text)" }}>Violência Sexual</span>
+        </nav>
 
         <header className="mb-10">
           <h1
@@ -47,21 +48,12 @@ export default function ViolenciaSexualPage() {
           </p>
         </header>
 
-        <section
-          className="rounded-lg p-4 mb-10 text-sm"
-          style={{
-            backgroundColor: "var(--surface)",
-            border: "1px solid var(--border)",
-            borderLeft: "3px solid var(--accent-amber)",
-            color: "var(--text-muted)",
-          }}
-        >
-          <strong style={{ color: "var(--accent-amber)" }}>Nota metodológica:</strong>{" "}
+        <NotaMetodologica>
           Os dados refletem registros policiais — não o total de ocorrências.
           A subnotificação é historicamente alta neste tipo de crime. Aumentos nos
           registros podem indicar melhora na denúncia, não necessariamente aumento
           dos crimes.
-        </section>
+        </NotaMetodologica>
 
         <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14">
           <StatCard
@@ -101,11 +93,13 @@ export default function ViolenciaSexualPage() {
           </h2>
           <div className="overflow-x-auto">
             <table className="w-full text-sm" style={{ borderCollapse: "collapse" }}>
+              <caption className="sr-only">Registros de estupro por estado, 2023 vs 2024</caption>
               <thead>
                 <tr style={{ borderBottom: "1px solid var(--border)" }}>
                   {["UF", "Região", "Total 2023", "Total 2024", "Taxa 2024", "Variação"].map((h) => (
                     <th
                       key={h}
+                      scope="col"
                       className="text-left py-2 px-3 text-xs uppercase tracking-wide"
                       style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
                     >

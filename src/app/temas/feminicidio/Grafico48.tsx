@@ -73,6 +73,7 @@ function StackBar({
 
 export function Grafico48({ autoria }: { autoria: AutoriaSexo }) {
   return (
+    <figure aria-label="Gráfico 48 — autoria de crimes por sexo do autor">
     <div
       className="rounded-lg p-6"
       style={{ backgroundColor: "var(--surface)", border: "1px solid var(--border)" }}
@@ -159,5 +160,7 @@ export function Grafico48({ autoria }: { autoria: AutoriaSexo }) {
         tabela={`Gráfico ${autoria.grafico} · ${autoria.tabela_origem}`}
       />
     </div>
+      <figcaption className="sr-only">Gráfico 48 — autoria de crimes por sexo do autor</figcaption>
+    </figure>
   );
 }

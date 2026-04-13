@@ -44,11 +44,11 @@ export default function FeminicidioPage() {
       <main className="max-w-6xl mx-auto px-4 py-12">
 
         {/* ── Breadcrumb ── */}
-        <p className="text-xs mb-6" style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-          <a href="/" style={{ color: "var(--text-dim)" }}>Início</a>
+        <nav aria-label="Navegação estrutural" className="text-xs mb-6" style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
+          <a href="/" style={{ color: "var(--text-muted)" }}>Início</a>
           {" / "}
-          <span style={{ color: "var(--text)" }}>Feminicídio</span>
-        </p>
+          <span aria-current="page" style={{ color: "var(--text)" }}>Feminicídio</span>
+        </nav>
 
         {/* ── Hero ── */}
         <header className="mb-10">
@@ -155,11 +155,13 @@ export default function FeminicidioPage() {
           </h2>
           <div className="overflow-x-auto">
             <table className="w-full text-sm" style={{ borderCollapse: "collapse" }}>
+              <caption className="sr-only">Feminicídios e homicídios de mulheres por estado, 2023 vs 2024</caption>
               <thead>
                 <tr style={{ borderBottom: "1px solid var(--border)" }}>
                   {["UF", "Região", "Hom. Mulheres 2024", "Feminicídios 2024", "Proporção 2024", "Variação 2023→24"].map((h) => (
                     <th
                       key={h}
+                      scope="col"
                       className="text-left py-2 px-3 text-xs uppercase tracking-wide"
                       style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
                     >

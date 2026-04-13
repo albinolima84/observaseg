@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { StatCard } from "@/components/ui/StatCard";
@@ -204,9 +205,10 @@ export default function Home() {
                 desc: "374 mil roubos de celular e 126 mil roubos de veículo em 2024",
               },
             ].map((tema) => (
-              <a
+              <Link
                 key={tema.href}
                 href={tema.href}
+                aria-label={`${tema.titulo}: ${tema.desc}`}
                 className="block rounded-lg p-5 transition-opacity hover:opacity-80"
                 style={{
                   backgroundColor: "var(--surface)",
@@ -226,7 +228,7 @@ export default function Home() {
                 <p className="text-sm" style={{ color: "var(--text-muted)" }}>
                   {tema.desc}
                 </p>
-              </a>
+              </Link>
             ))}
           </div>
         </section>
