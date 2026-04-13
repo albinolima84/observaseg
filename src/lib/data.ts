@@ -128,7 +128,7 @@ export function getHomeStats(ano = 2025) {
   const taxa2023 = brasil.taxas[n - 2] ?? 0;
 
   const fem2024 = brasiFem?.feminicidios_2024 ?? 0;
-  const fem2023 = brasiFem?.feminicidios_2023 ?? 0;
+  const fem2023 = 0; // dados absolutos 2023 não disponíveis após correção do JSON
   const mortesPol2024 = brasilLet?.mortes_2024 ?? 0;
   const mortesPol2023 = brasilLet?.mortes_2023 ?? 0;
 

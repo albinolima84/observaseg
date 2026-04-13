@@ -341,6 +341,20 @@ def extract_mvi_estados(wb, year: int, output_dir: Path) -> None:
 
 
 def extract_feminicidio(wb, year: int, output_dir: Path) -> None:
+    """
+    T24 — Feminicídio por UF (2023 e 2024).
+
+    Problema identificado: col_2024[1] (feminicídios absolutos) captura coluna
+    incorreta da T24, retornando valores 1–7 ao invés dos ~1.700 reais.
+    Apenas col_2024[0] (homicidios_mulheres_2024) é confiável.
+
+    Solução: feminicidios_2024 é derivado como
+      homicidios_mulheres_2024 × proporcao_T07 / 100
+    onde proporcao_T07 vem da T07 (feminicidio_hist.json), extraída separadamente.
+
+    Dados absolutos de 2023 também inválidos — excluídos.
+    Apenas proporções históricas (T07) são mantidas para 2023.
+    """
     rows = read_sheet(wb, "T24")
 
     header_idx = None
@@ -355,7 +369,6 @@ def extract_feminicidio(wb, year: int, output_dir: Path) -> None:
         return
 
     header = rows[header_idx]
-    col_2023 = [i for i, v in enumerate(header) if v == 2023]
     col_2024 = [i for i, v in enumerate(header) if v == 2024]
 
     dados: list[dict] = []
@@ -368,31 +381,52 @@ def extract_feminicidio(wb, year: int, output_dir: Path) -> None:
         def get(cols, idx):
             return _int_or_none(row[cols[idx]] if idx < len(cols) and cols[idx] < len(row) else None)
 
-        hom_m_23 = get(col_2023, 0)
-        fem_23 = get(col_2023, 1)
+        # Somente homicidios_mulheres_2024 é confiável em T24
         hom_m_24 = get(col_2024, 0)
-        fem_24 = get(col_2024, 1)
 
         dados.append({
             "uf": uf_str,
             "regiao": _regiao(uf_str),
-            "homicidios_mulheres_2023": hom_m_23,
             "homicidios_mulheres_2024": hom_m_24,
-            "feminicidios_2023": fem_23,
-            "feminicidios_2024": fem_24,
-            "proporcao_2023": _round_or_none(fem_23 / hom_m_23 * 100) if hom_m_23 else None,
-            "proporcao_2024": _round_or_none(fem_24 / hom_m_24 * 100) if hom_m_24 else None,
+            # feminicidios_2024 e proporcoes derivados em pós-processamento via T07
         })
 
     if not dados:
         print("  ! T24: nenhuma linha de UF extraída.", file=sys.stderr)
         return
 
+    # Pós-processamento: cruza com feminicidio_hist para derivar feminicidios_2024
+    hist_path = output_dir / "feminicidio_hist.json"
+    proporcoes: dict[str, dict] = {}
+    if hist_path.exists():
+        import json as _json
+        hist_data = _json.loads(hist_path.read_text())
+        for item in hist_data.get("dados", []):
+            props = item.get("proporcoes", [])
+            if len(props) >= 2:
+                proporcoes[item["uf"]] = {
+                    "proporcao_2024": props[-1],
+                    "proporcao_2023": props[-2],
+                }
+
+    for d in dados:
+        h = proporcoes.get(d["uf"], {})
+        p24 = h.get("proporcao_2024")
+        hom = d.get("homicidios_mulheres_2024")
+        d["feminicidios_2024"] = round(hom * p24 / 100) if hom and p24 else None
+        d["proporcao_2024"] = p24
+        d["proporcao_2023"] = h.get("proporcao_2023")
+
     save_json(
         output_dir / "feminicidio.json",
         {
             "fonte": f"Fórum Brasileiro de Segurança Pública, {year}",
             "tabela": "T24",
+            "nota": (
+                "feminicidios_2024 derivado: homicidios_mulheres_2024 (T24) "
+                "× proporcao (T07/feminicidio_hist). "
+                "Dados absolutos de 2023 excluídos por inconsistência na extração."
+            ),
             "dados": dados,
         },
         "T24 Feminicídio",
