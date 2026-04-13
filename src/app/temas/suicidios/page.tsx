@@ -3,7 +3,7 @@ import { Footer } from "@/components/layout/Footer";
 import { StatCard } from "@/components/ui/StatCard";
 import { InsightCard } from "@/components/ui/InsightCard";
 import { FonteTag } from "@/components/ui/FonteTag";
-import { getSuicidios, getMviEstados } from "@/lib/data";
+import { getSuicidios, getMviEstados, getLetalidade } from "@/lib/data";
 import { fmtInteiro, fmtDecimal } from "@/lib/formatters";
 
 export const metadata = {
@@ -15,13 +15,24 @@ export const metadata = {
 export default function SuicidiosPage() {
   const suicidios = getSuicidios();
   const mviEstados = getMviEstados();
+  const let_ = getLetalidade();
 
   const brasil = suicidios.dados.find((d) => d.uf === "Brasil")!;
   const mvi = mviEstados.dados.find((d) => d.uf === "Brasil")!;
+  const brasilLet = let_.dados.find((d) => d.uf === "Brasil")!;
 
   // Proporção suicídio / MVI total
   const proporcaoMVI = mvi.mvi_total_2024
     ? +((brasil.total_2024! / mvi.mvi_total_2024) * 100).toFixed(1)
+    : null;
+
+  // Comparação cruzada: suicídio vs outros componentes violentos
+  const latrocinio = mvi.latrocinio_2024 ?? 0;
+  const lcfm = mvi.lcfm_2024 ?? 0;
+  const letalidadePolicial = brasilLet.mortes_2024 ?? 0;
+  const somaTresComponentes = latrocinio + lcfm + letalidadePolicial;
+  const fatorVsSoma = brasil.total_2024 && somaTresComponentes
+    ? +(brasil.total_2024 / somaTresComponentes).toFixed(1)
     : null;
 
   const porUF = suicidios.dados
@@ -89,17 +100,34 @@ export default function SuicidiosPage() {
         {/* ── Insights ── */}
         <section className="grid md:grid-cols-2 gap-4 mb-14">
           <InsightCard
+            destaque
+            titulo="Suicídio mata mais que latrocínio, LCFM e letalidade policial juntos"
+            dado={fatorVsSoma ? `${fatorVsSoma}× a soma dos três componentes` : `${fmtInteiro(brasil.total_2024)} mortes`}
+            contexto={`Em 2024: latrocínio (${fmtInteiro(latrocinio)}), LCFM (${fmtInteiro(lcfm)}) e letalidade policial (${fmtInteiro(letalidadePolicial)}) somam ${fmtInteiro(somaTresComponentes)} mortes. O suicídio (${fmtInteiro(brasil.total_2024)}) supera essa soma em ${fatorVsSoma}×. São três fenômenos que dominam o debate de segurança pública — mas o suicídio, que raramente aparece nesse debate, é maior do que todos eles combinados.`}
+            fonte="Fórum Brasileiro de Segurança Pública"
+            tabela="T22 · T01"
+            anoReferencia={2024}
+          />
+          <InsightCard
             titulo="Suicídio: a violência invisível nos dados de segurança"
-            dado={proporcaoMVI != null ? `${fmtDecimal(proporcaoMVI)}%` : "~37%"}
-            contexto={`Com ${fmtInteiro(brasil.total_2024)} mortes em 2024, o suicídio representa ${proporcaoMVI != null ? fmtDecimal(proporcaoMVI) + "%" : "cerca de 37%"} de todas as Mortes Violentas Intencionais. É um fenômeno de saúde pública que raramente aparece nas estatísticas de segurança, mas que supera em escala muitos dos crimes que dominam o debate público.`}
+            dado={proporcaoMVI != null ? `${fmtDecimal(proporcaoMVI)}% das MVI` : "~37% das MVI"}
+            contexto={`Com ${fmtInteiro(brasil.total_2024)} mortes em 2024, o suicídio representa ${proporcaoMVI != null ? fmtDecimal(proporcaoMVI) + "%" : "cerca de 37%"} de todas as Mortes Violentas Intencionais. É um fenômeno de saúde pública que raramente aparece nas estatísticas de segurança, mas que supera em escala feminicídio, latrocínio e LCFM somados.`}
             fonte="Fórum Brasileiro de Segurança Pública"
             tabela="T22"
             anoReferencia={2024}
           />
           <InsightCard
-            titulo="Sul do Brasil concentra as maiores taxas"
-            dado="RS: 13,5/100k"
-            contexto="Rio Grande do Sul (13,5) e Santa Catarina (13,0) lideram o ranking nacional de taxa de suicídio por 100 mil habitantes — quase o dobro da média nacional de 7,74. A associação com estados de colonização europeia é um padrão histórico documentado pela literatura de saúde pública, mas os mecanismos ainda são objeto de debate."
+            titulo="RS e SC: quase 2× a média nacional"
+            dado="RS: 13,5/100k · SC: 13,0/100k (média: 7,74)"
+            contexto="Rio Grande do Sul (13,5) e Santa Catarina (13,0) lideram o ranking nacional de taxa de suicídio — quase o dobro da média nacional de 7,74/100k. Dois estados do Sul figuram entre os piores: isso coloca a região em contexto único no debate de saúde pública, pois são estados com alto IDH mas elevada mortalidade por suicídio."
+            fonte="Fórum Brasileiro de Segurança Pública"
+            tabela="T22"
+            anoReferencia={2024}
+          />
+          <InsightCard
+            titulo="Cada 32 minutos, uma morte por suicídio no Brasil"
+            dado="16.446 mortes em 2024 — 45 por dia"
+            contexto="O suicídio mata em média 45 pessoas por dia no Brasil — mais do que homicídios dolosos em vários estados inteiros. Apesar disso, o tema recebe menos atenção em políticas de segurança pública do que crimes patrimoniais com muito menor impacto em vidas. O Anuário de 2025 é uma das raras publicações de segurança a incluir esse dado."
             fonte="Fórum Brasileiro de Segurança Pública"
             tabela="T22"
             anoReferencia={2024}

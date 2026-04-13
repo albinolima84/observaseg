@@ -2,9 +2,10 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { StatCard } from "@/components/ui/StatCard";
 import { InsightCard } from "@/components/ui/InsightCard";
-import { getLetalidade } from "@/lib/data";
+import { getLetalidade, getMviEstados } from "@/lib/data";
 import { fmtInteiro, fmtDecimal, fmtVariacao, corVariacaoMVI } from "@/lib/formatters";
 import { FonteTag } from "@/components/ui/FonteTag";
+import { LetalidadeMviScatter } from "./LetalidadeMviScatter";
 
 export const metadata = {
   title: "Letalidade Policial",
@@ -14,11 +15,27 @@ export const metadata = {
 
 export default function LetalidadePolicialPage() {
   const let_ = getLetalidade();
+  const mviEstados = getMviEstados();
   const brasil = let_.dados.find((d) => d.uf === "Brasil")!;
 
   const porUF = let_.dados
     .filter((d) => d.uf !== "Brasil" && d.regiao !== null && d.mortes_2024 != null)
     .sort((a, b) => (b.mortes_2024 ?? 0) - (a.mortes_2024 ?? 0));
+
+  // Dados para o scatter: cruzamento letalidade × taxa MVI
+  const mviMap: Record<string, number> = {};
+  mviEstados.dados
+    .filter((d) => d.uf !== "Brasil")
+    .forEach((d) => { if (d.taxa_2024 != null) mviMap[d.uf] = d.taxa_2024; });
+
+  const scatterData = let_.dados
+    .filter((d) => d.uf !== "Brasil" && d.regiao !== null && mviMap[d.uf])
+    .map((d) => ({
+      uf: d.uf,
+      taxaMvi: mviMap[d.uf],
+      pctLet: d.proporcao_mvi_2024 ?? 0,
+      mortes: d.mortes_2024 ?? 0,
+    }));
 
   return (
     <>
@@ -92,6 +109,35 @@ export default function LetalidadePolicialPage() {
             fonte="Fórum Brasileiro de Segurança Pública"
             tabela="T10"
             anoReferencia={2024}
+          />
+          <InsightCard
+            destaque
+            titulo="Amapá: 38% das mortes violentas são pela polícia"
+            dado="37,85% das MVI — maior proporção do país"
+            contexto="No Amapá, quase 4 em cada 10 mortes violentas intencionais são causadas por intervenções policiais — a maior proporção do país. Com taxa de MVI de 45,09/100k (terceira maior), o estado acumula duplo problema: muita violência e muita letalidade policial. O dado levanta questões sobre o modelo de segurança pública adotado."
+            fonte="Fórum Brasileiro de Segurança Pública"
+            tabela="T10"
+            anoReferencia={2024}
+          />
+          <InsightCard
+            titulo="Mais gasto não significa menos letalidade policial"
+            dado="SP: R$14,5bi gastos, 21,7% de letalidade"
+            contexto="São Paulo é o estado que mais investe em segurança pública (R$14,56 bilhões em 2024) e ainda assim tem proporção de letalidade policial acima da média nacional (21,7%). O gráfico de dispersão abaixo não mostra correlação clara entre taxa de violência e proporção de mortes policiais — sugerindo que a cultura institucional e o modelo de policiamento explicam mais do que os recursos disponíveis."
+            fonte="Fórum Brasileiro de Segurança Pública"
+            tabela="T10"
+            anoReferencia={2024}
+          />
+        </section>
+
+        {/* ── Scatter: Letalidade × Taxa MVI ── */}
+        <section
+          className="rounded-lg p-6 mb-14"
+          style={{ backgroundColor: "var(--surface)", border: "1px solid var(--border)" }}
+        >
+          <LetalidadeMviScatter data={scatterData} />
+          <FonteTag
+            fonte="Fórum Brasileiro de Segurança Pública"
+            tabela="T01 (MVI) · T10 (Letalidade)"
           />
         </section>
 

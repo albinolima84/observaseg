@@ -120,23 +120,23 @@ export interface Letalidade {
 // Violência Sexual
 // ------------------------------------------------------------
 
-/** Tabela T34 — Estupro e estupro de vulnerável 2023–2024 por UF */
+/** Tabela T34 — Estupro e estupro de vulnerável 2024 por UF
+ *  Nota: dados 2023 foram excluídos por inconsistência no mapeamento de colunas.
+ *  total_2024 = estupro_simples_2024 + estupro_vulneravel_2024.
+ */
 export interface EstuproItem {
   uf: string;
   regiao: string | null;
-  estupro_2023: number | null;
-  estupro_2024: number | null;
-  estupro_vulneravel_2023: number | null;
-  estupro_vulneravel_2024: number | null;
-  total_2023: number | null;
   total_2024: number | null;
-  taxa_2023: number | null;
-  taxa_2024: number | null;
+  estupro_simples_2024: number | null;
+  estupro_vulneravel_2024: number | null;
+  pct_vulneravel_2024: number | null;
 }
 
 export interface Estupro {
   fonte: string;
   tabela: "T34";
+  nota: string;
   dados: EstuproItem[];
 }
 
@@ -289,4 +289,14 @@ export interface InsightCardData {
   anoReferencia: number;
   href?: string;
   destaque?: boolean;
+}
+
+// ------------------------------------------------------------
+// População por UF — IBGE 2024 (dados estáticos)
+// ------------------------------------------------------------
+export interface PopulacaoUF {
+  fonte: string;
+  url: string;
+  ano_referencia: number;
+  dados: Record<string, number>; // uf → população absoluta
 }

@@ -3,7 +3,7 @@ import { Footer } from "@/components/layout/Footer";
 import { StatCard } from "@/components/ui/StatCard";
 import { InsightCard } from "@/components/ui/InsightCard";
 import { FonteTag } from "@/components/ui/FonteTag";
-import { getGastos, getMviEstados } from "@/lib/data";
+import { getGastos, getMviEstados, getPopulacaoUF } from "@/lib/data";
 import { fmtDecimal, fmtVariacao, corVariacaoNeutra } from "@/lib/formatters";
 import { GastoMviScatter } from "./GastoMviScatter";
 
@@ -21,22 +21,45 @@ function fmtReais(v: number | null | undefined): string {
   return `R$ ${fmtDecimal(v, 0)} mil`;
 }
 
+// Formata R$/habitante
+function fmtPerCapita(v: number | null | undefined): string {
+  if (v == null) return "—";
+  return `R$ ${fmtDecimal(v, 0)}/hab`;
+}
+
 export default function GastosPublicosPage() {
   const gastos = getGastos();
   const mviEstados = getMviEstados();
+  const pop = getPopulacaoUF();
 
   const porUF = gastos.dados
     .filter((d) => d.regiao !== null)
     .sort((a, b) => (b.total_2024 ?? 0) - (a.total_2024 ?? 0));
+
+  // Per capita correto: total_2024 (R$) / pop_2024 (hab)
+  const porUFComPerCapita = porUF.map((d) => ({
+    ...d,
+    pop2024: pop.dados[d.uf] ?? null,
+    perCapitaReal: pop.dados[d.uf] && d.total_2024
+      ? +(d.total_2024 / pop.dados[d.uf]).toFixed(2)
+      : null,
+  }));
+
+  // Brasil per capita total
+  const popBrasil = pop.dados["Brasil"];
+  const brasilTotal2024 = porUF.reduce((s, d) => s + (d.total_2024 ?? 0), 0);
 
   const total2024 = porUF.reduce((s, d) => s + (d.total_2024 ?? 0), 0);
   const total2023 = porUF.reduce((s, d) => s + (d.total_2023 ?? 0), 0);
   const variacao = total2023 > 0
     ? +((total2024 - total2023) / total2023 * 100).toFixed(2)
     : undefined;
+  const brasilPerCapita = popBrasil && brasilTotal2024
+    ? +(brasilTotal2024 / popBrasil).toFixed(2)
+    : null;
 
   // Dados para scatter: cruzar gasto com taxa MVI por estado
-  const scatterDados = porUF.flatMap((g) => {
+  const scatterDados = porUFComPerCapita.flatMap((g) => {
     const mvi = mviEstados.dados.find((m) => m.uf === g.uf);
     if (!g.total_2024 || !mvi?.taxa_2024) return [];
     return [{ uf: g.uf, gasto: g.total_2024, taxa: mvi.taxa_2024 }];
@@ -89,19 +112,23 @@ export default function GastosPublicosPage() {
             fonte="FBSP · T96"
           />
           <StatCard
-            titulo="Estados com dados"
-            valor={String(porUF.length)}
-            descricao="unidades da federação"
-            fonte="FBSP · T96"
+            titulo="Per capita Brasil 2024"
+            valor={brasilPerCapita ? fmtPerCapita(brasilPerCapita) : "—"}
+            descricao="gasto médio por habitante (IBGE 2024)"
+            fonte="FBSP · T96 · IBGE"
+            inverterCor={false}
           />
           <StatCard
             titulo="Maior gasto per capita"
             valor={(() => {
-              const top = [...porUF].sort((a, b) => (b.per_capita_2024 ?? 0) - (a.per_capita_2024 ?? 0))[0];
-              return top ? `${top.uf}: R$ ${fmtDecimal(top.per_capita_2024, 0)}` : "—";
+              const top = [...porUFComPerCapita]
+                .filter(d => d.perCapitaReal != null)
+                .sort((a, b) => (b.perCapitaReal ?? 0) - (a.perCapitaReal ?? 0))[0];
+              return top ? `${top.uf}: ${fmtPerCapita(top.perCapitaReal)}` : "—";
             })()}
-            descricao="estado com maior gasto per capita"
-            fonte="FBSP · T96"
+            descricao="estado com maior investimento per capita em 2024"
+            fonte="FBSP · T96 · IBGE"
+            inverterCor={false}
           />
         </section>
 
@@ -152,7 +179,7 @@ export default function GastosPublicosPage() {
               <caption className="sr-only">Gastos com segurança pública por estado, 2023 vs 2024</caption>
               <thead>
                 <tr style={{ borderBottom: "1px solid var(--border)" }}>
-                  {["UF", "Região", "Total 2023", "Total 2024", "Per capita 2024", "Variação"].map((h) => (
+                  {["UF", "Região", "Total 2023", "Total 2024", "Per capita real", "Variação"].map((h) => (
                     <th
                       key={h}
                       scope="col"
@@ -165,14 +192,14 @@ export default function GastosPublicosPage() {
                 </tr>
               </thead>
               <tbody>
-                {porUF.map((d) => (
+                {porUFComPerCapita.map((d) => (
                   <tr key={d.uf} style={{ borderBottom: "1px solid var(--border)" }}>
                     <td className="py-2 px-3 font-medium" style={{ color: "var(--text)", fontFamily: "var(--font-mono)" }}>{d.uf}</td>
                     <td className="py-2 px-3" style={{ color: "var(--text-muted)" }}>{d.regiao}</td>
                     <td className="py-2 px-3" style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>{fmtReais(d.total_2023)}</td>
                     <td className="py-2 px-3 font-medium" style={{ color: "var(--text)", fontFamily: "var(--font-mono)" }}>{fmtReais(d.total_2024)}</td>
                     <td className="py-2 px-3" style={{ color: "var(--text)", fontFamily: "var(--font-mono)" }}>
-                      {d.per_capita_2024 != null ? `R$ ${fmtDecimal(d.per_capita_2024, 0)}` : "—"}
+                      {fmtPerCapita(d.perCapitaReal)}
                     </td>
                     <td className="py-2 px-3 font-medium" style={{ color: corVariacaoNeutra(d.variacao_pct), fontFamily: "var(--font-mono)" }}>
                       {fmtVariacao(d.variacao_pct)}
