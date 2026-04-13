@@ -17,6 +17,7 @@ import type {
   MviEstados,
   MviHistorico,
   Patrimonio,
+  PopulacaoUF,
   Prisional,
   Suicidios,
 } from "@/types";
@@ -84,6 +85,10 @@ export function getSuicidios(ano = 2025): Suicidios {
 
 export function getAutoriaSexo(ano = 2025): AutoriaSexo {
   return load<AutoriaSexo>(ano, "autoria_sexo.json");
+}
+
+export function getPopulacaoUF(ano = 2025): PopulacaoUF {
+  return load<PopulacaoUF>(ano, "populacao_uf.json");
 }
 
 // ---------------------------------------------------------------------------

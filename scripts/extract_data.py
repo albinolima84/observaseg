@@ -533,6 +533,21 @@ def extract_letalidade(wb, year: int, output_dir: Path) -> None:
 
 
 def extract_estupro(wb, year: int, output_dir: Path) -> None:
+    """
+    T34 — Violência sexual (estupro e estupro de vulnerável).
+
+    Estrutura real da T34: para cada ano há 4 colunas —
+      [estupro_simples | estupro_vulneravel | total | taxa/100k]
+    O cabeçalho repete o ano nos 4 slots, mas o script detecta apenas as
+    ocorrências do inteiro; as colunas 0..2 mapeiam simples/vul/total e a
+    coluna 3 (taxa) pode ficar fora do range detectado se a célula do ano
+    for mesclada apenas nos 3 primeiros.
+
+    Resultado: col_2024[2] = total_absoluto (não taxa). Derivamos:
+      - total_2024  = col_2024[2]
+      - vulneravel  = total_2024 - estupro_simples_2024
+    Dados de 2023 são excluídos — mapeamento incerto, valores implausíveis.
+    """
     rows = read_sheet(wb, "T34")
 
     header_idx = None
@@ -547,7 +562,6 @@ def extract_estupro(wb, year: int, output_dir: Path) -> None:
         return
 
     header = rows[header_idx]
-    col_2023 = [i for i, v in enumerate(header) if v == 2023]
     col_2024 = [i for i, v in enumerate(header) if v == 2024]
 
     dados: list[dict] = []
@@ -560,28 +574,23 @@ def extract_estupro(wb, year: int, output_dir: Path) -> None:
         def get(cols, idx):
             return _int_or_none(row[cols[idx]] if idx < len(cols) and cols[idx] < len(row) else None)
 
-        est_23 = get(col_2023, 0)
-        vul_23 = get(col_2023, 1)
+        # col_2024[0] = estupro simples; col_2024[2] = total absoluto (não taxa)
         est_24 = get(col_2024, 0)
-        vul_24 = get(col_2024, 1)
+        total_24 = get(col_2024, 2)
 
-        total_23 = (est_23 or 0) + (vul_23 or 0) if (est_23 is not None or vul_23 is not None) else None
-        total_24 = (est_24 or 0) + (vul_24 or 0) if (est_24 is not None or vul_24 is not None) else None
+        if total_24 is None and est_24 is not None:
+            total_24 = est_24  # fallback se só tiver 1 col
 
-        taxa_23 = _round_or_none(row[col_2023[2]] if len(col_2023) > 2 and col_2023[2] < len(row) else None)
-        taxa_24 = _round_or_none(row[col_2024[2]] if len(col_2024) > 2 and col_2024[2] < len(row) else None)
+        vul_24 = (total_24 - est_24) if (total_24 is not None and est_24 is not None) else None
+        pct_vul = round((vul_24 / total_24 * 100), 1) if (vul_24 is not None and total_24) else None
 
         dados.append({
             "uf": uf_str,
             "regiao": _regiao(uf_str),
-            "estupro_2023": est_23,
-            "estupro_2024": est_24,
-            "estupro_vulneravel_2023": vul_23,
-            "estupro_vulneravel_2024": vul_24,
-            "total_2023": total_23,
             "total_2024": total_24,
-            "taxa_2023": taxa_23,
-            "taxa_2024": taxa_24,
+            "estupro_simples_2024": est_24,
+            "estupro_vulneravel_2024": vul_24,
+            "pct_vulneravel_2024": pct_vul,
         })
 
     if not dados:
@@ -593,6 +602,11 @@ def extract_estupro(wb, year: int, output_dir: Path) -> None:
         {
             "fonte": f"Fórum Brasileiro de Segurança Pública, {year}",
             "tabela": "T34",
+            "nota": (
+                "total_2024 = estupro_simples_2024 + estupro_vulneravel_2024. "
+                "Dados 2023 excluídos por inconsistência no mapeamento de colunas. "
+                "Estados AC, DF e GO sem dados em 2024."
+            ),
             "dados": dados,
         },
         "T34 Violência sexual",

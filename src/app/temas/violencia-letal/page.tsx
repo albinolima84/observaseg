@@ -43,6 +43,21 @@ export default function ViolenciaLetalPage() {
   const top10 = ranking.slice(0, 10).map((d) => ({ uf: d.uf, taxa: d.taxa_2024 }));
   const bottom5 = ranking.slice(-5).map((d) => ({ uf: d.uf, taxa: d.taxa_2024 }));
 
+  // Tendências 2012–2024 por estado
+  const tendencias = hist.dados
+    .filter((d) => d.uf !== "Brasil" && d.regiao !== null && d.taxas.length >= 2)
+    .map((d) => ({
+      uf: d.uf,
+      regiao: d.regiao,
+      taxa2012: d.taxas[0],
+      taxa2024: d.taxas[d.taxas.length - 1],
+      variacao: +((((d.taxas[d.taxas.length - 1] ?? 0) - (d.taxas[0] ?? 0)) / (d.taxas[0] ?? 1)) * 100).toFixed(1),
+    }))
+    .sort((a, b) => a.variacao - b.variacao);
+
+  const maioresQuedas = tendencias.slice(0, 5);
+  const maioresAltas = tendencias.slice(-5).reverse();
+
   // Tabela completa — todos os estados, ordenados por taxa
   const tabelaUFs = estados.dados.filter((d) => d.uf !== "Brasil" && d.regiao !== null);
 
@@ -274,6 +289,92 @@ export default function ViolenciaLetalPage() {
             </table>
           </div>
           <FonteTag fonte="Fórum Brasileiro de Segurança Pública" tabela="T01" />
+        </section>
+
+        {/* ── Tendências 2012–2024 ── */}
+        <section className="mb-14">
+          <h2
+            className="text-xl font-semibold mb-2"
+            style={{ fontFamily: "var(--font-display)", color: "var(--text)" }}
+          >
+            Tendências estaduais — 2012 a 2024
+          </h2>
+          <p className="text-sm mb-8 max-w-2xl" style={{ color: "var(--text-muted)" }}>
+            Variação da taxa de MVI por 100 mil habitantes entre 2012 e 2024.
+            O mesmo período em que o Brasil reduziu 25% na taxa nacional esconde
+            trajetórias muito diferentes entre os estados.
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Maiores quedas */}
+            <div>
+              <p
+                className="text-xs uppercase tracking-widest mb-4"
+                style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
+              >
+                Maiores reduções (taxa/100k)
+              </p>
+              <div className="flex flex-col gap-2">
+                {maioresQuedas.map((d) => (
+                  <div
+                    key={d.uf}
+                    className="flex items-center justify-between rounded px-3 py-2"
+                    style={{ backgroundColor: "var(--surface)", border: "1px solid var(--border)" }}
+                  >
+                    <div>
+                      <span className="text-sm font-medium" style={{ color: "var(--text)", fontFamily: "var(--font-mono)" }}>
+                        {d.uf}
+                      </span>
+                      <span className="text-xs ml-2" style={{ color: "var(--text-muted)" }}>
+                        {d.taxa2012} → {d.taxa2024}
+                      </span>
+                    </div>
+                    <span
+                      className="text-sm font-bold"
+                      style={{ color: "var(--accent-green)", fontFamily: "var(--font-mono)" }}
+                    >
+                      {d.variacao}%
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Maiores altas */}
+            <div>
+              <p
+                className="text-xs uppercase tracking-widest mb-4"
+                style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
+              >
+                Maiores aumentos (taxa/100k)
+              </p>
+              <div className="flex flex-col gap-2">
+                {maioresAltas.map((d) => (
+                  <div
+                    key={d.uf}
+                    className="flex items-center justify-between rounded px-3 py-2"
+                    style={{ backgroundColor: "var(--surface)", border: "1px solid var(--border)" }}
+                  >
+                    <div>
+                      <span className="text-sm font-medium" style={{ color: "var(--text)", fontFamily: "var(--font-mono)" }}>
+                        {d.uf}
+                      </span>
+                      <span className="text-xs ml-2" style={{ color: "var(--text-muted)" }}>
+                        {d.taxa2012} → {d.taxa2024}
+                      </span>
+                    </div>
+                    <span
+                      className="text-sm font-bold"
+                      style={{ color: "var(--accent)", fontFamily: "var(--font-mono)" }}
+                    >
+                      +{d.variacao}%
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <FonteTag fonte="Fórum Brasileiro de Segurança Pública" tabela="T02" />
         </section>
 
       </main>
