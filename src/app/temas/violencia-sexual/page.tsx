@@ -1,0 +1,145 @@
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { StatCard } from "@/components/ui/StatCard";
+import { FonteTag } from "@/components/ui/FonteTag";
+import { getEstupro } from "@/lib/data";
+import { fmtInteiro, fmtDecimal, fmtVariacao, corVariacaoMVI } from "@/lib/formatters";
+
+export const metadata = {
+  title: "Violência Sexual",
+  description:
+    "Registros de estupro e estupro de vulnerável no Brasil 2024, por Unidade da Federação.",
+};
+
+export default function ViolenciaSexualPage() {
+  const estupro = getEstupro();
+  const brasil = estupro.dados.find((d) => d.uf === "Brasil")!;
+
+  const porUF = estupro.dados
+    .filter((d) => d.uf !== "Brasil" && d.regiao !== null)
+    .sort((a, b) => (b.total_2024 ?? 0) - (a.total_2024 ?? 0));
+
+  const variacao = brasil.total_2023 && brasil.total_2024
+    ? +((brasil.total_2024 - brasil.total_2023) / brasil.total_2023 * 100).toFixed(2)
+    : undefined;
+
+  return (
+    <>
+      <Header />
+      <main className="max-w-6xl mx-auto px-4 py-12">
+
+        <p className="text-xs mb-6" style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
+          <a href="/" style={{ color: "var(--text-dim)" }}>Início</a>
+          {" / "}
+          <span style={{ color: "var(--text)" }}>Violência Sexual</span>
+        </p>
+
+        <header className="mb-10">
+          <h1
+            className="text-3xl md:text-4xl font-bold leading-tight mb-3"
+            style={{ fontFamily: "var(--font-display)", color: "var(--text)" }}
+          >
+            Violência Sexual
+          </h1>
+          <p className="text-base max-w-2xl" style={{ color: "var(--text-muted)" }}>
+            Registros de estupro e estupro de vulnerável nas secretarias estaduais
+            de segurança pública, comparativo 2023–2024 por Unidade da Federação.
+          </p>
+        </header>
+
+        <section
+          className="rounded-lg p-4 mb-10 text-sm"
+          style={{
+            backgroundColor: "var(--surface)",
+            border: "1px solid var(--border)",
+            borderLeft: "3px solid var(--accent-amber)",
+            color: "var(--text-muted)",
+          }}
+        >
+          <strong style={{ color: "var(--accent-amber)" }}>Nota metodológica:</strong>{" "}
+          Os dados refletem registros policiais — não o total de ocorrências.
+          A subnotificação é historicamente alta neste tipo de crime. Aumentos nos
+          registros podem indicar melhora na denúncia, não necessariamente aumento
+          dos crimes.
+        </section>
+
+        <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14">
+          <StatCard
+            titulo="Total 2024"
+            valor={fmtInteiro(brasil.total_2024)}
+            variacao={variacao}
+            descricao="estupro + estupro de vulnerável"
+            fonte="FBSP · T34"
+            inverterCor={false}
+          />
+          <StatCard
+            titulo="Estupro 2024"
+            valor={fmtInteiro(brasil.estupro_2024)}
+            descricao="registros no Brasil"
+            fonte="FBSP · T34"
+          />
+          <StatCard
+            titulo="Estupro de vulnerável 2024"
+            valor={fmtInteiro(brasil.estupro_vulneravel_2024)}
+            descricao="vítimas com menos de 14 anos ou incapazes"
+            fonte="FBSP · T34"
+          />
+          <StatCard
+            titulo="Taxa 2024"
+            valor={brasil.taxa_2024 != null ? `${fmtDecimal(brasil.taxa_2024)}` : "—"}
+            descricao="por 100 mil habitantes"
+            fonte="FBSP · T34"
+          />
+        </section>
+
+        <section className="mb-14">
+          <h2
+            className="text-xl font-semibold mb-6"
+            style={{ fontFamily: "var(--font-display)", color: "var(--text)" }}
+          >
+            Por estado — 2024
+          </h2>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm" style={{ borderCollapse: "collapse" }}>
+              <thead>
+                <tr style={{ borderBottom: "1px solid var(--border)" }}>
+                  {["UF", "Região", "Total 2023", "Total 2024", "Taxa 2024", "Variação"].map((h) => (
+                    <th
+                      key={h}
+                      className="text-left py-2 px-3 text-xs uppercase tracking-wide"
+                      style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
+                    >
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {porUF.map((d) => {
+                  const var_ = d.total_2023 && d.total_2024
+                    ? +((d.total_2024 - d.total_2023) / d.total_2023 * 100).toFixed(2)
+                    : null;
+                  return (
+                    <tr key={d.uf} style={{ borderBottom: "1px solid var(--border)" }}>
+                      <td className="py-2 px-3 font-medium" style={{ color: "var(--text)", fontFamily: "var(--font-mono)" }}>{d.uf}</td>
+                      <td className="py-2 px-3" style={{ color: "var(--text-muted)" }}>{d.regiao}</td>
+                      <td className="py-2 px-3" style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>{fmtInteiro(d.total_2023)}</td>
+                      <td className="py-2 px-3 font-medium" style={{ color: "var(--text)", fontFamily: "var(--font-mono)" }}>{fmtInteiro(d.total_2024)}</td>
+                      <td className="py-2 px-3" style={{ color: "var(--text)", fontFamily: "var(--font-mono)" }}>{fmtDecimal(d.taxa_2024)}</td>
+                      <td className="py-2 px-3 font-medium" style={{ color: corVariacaoMVI(var_), fontFamily: "var(--font-mono)" }}>
+                        {fmtVariacao(var_)}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          <FonteTag fonte="Fórum Brasileiro de Segurança Pública" tabela="T34" />
+        </section>
+
+      </main>
+      <Footer />
+    </>
+  );
+}

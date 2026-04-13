@@ -15,6 +15,7 @@ dist/
 
 # Excel brutos (não versionar — são grandes e têm dados originais)
 scripts/raw/
+data/**/*.xlsx
 
 # Python
 __pycache__/

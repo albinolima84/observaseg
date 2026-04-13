@@ -232,14 +232,42 @@ def extract_mvi_estados(wb, year: int, output_dir: Path) -> None:
     """
     T01: MVI por UF com subcategorias (homicídio doloso, latrocínio, LCFM,
     intervenção policial).
+
+    Estrutura real do cabeçalho (linha de anos):
+      col 1  Hom. Doloso 2023 (string '2023 (3)')
+      col 2  Hom. Doloso 2024
+      col 3  Latrocínio 2023
+      col 4  Latrocínio 2024
+      col 5  LCFM 2023
+      col 6  LCFM 2024
+      col 7  Policiais vítimas CVLI 2023
+      col 8  Policiais vítimas CVLI 2024
+      col 9  Intervenção Policial 2023
+      col 10 Intervenção Policial 2024
+      col 11 MVI Total 2023
+      col 12 MVI Total 2024
+      col 13 Taxa 2023
+      col 14 Taxa 2024
+      col 15 Variação %
     """
     rows = read_sheet(wb, "T01")
 
-    # Localizar linha de cabeçalho com "2023" e "2024"
+    # Localizar linha de cabeçalho: procura linha onde o padrão é
+    # alternância entre valores que contêm "2023" e valores == 2024.
+    # O cabeçalho usa '2023 (3)' (string) para os absolutos e int 2023 para taxas.
+    def _is_2023(v) -> bool:
+        if isinstance(v, (int, float)):
+            return int(v) == 2023
+        return isinstance(v, str) and "2023" in v
+
+    def _is_2024(v) -> bool:
+        return isinstance(v, (int, float)) and int(v) == 2024
+
     header_idx = None
     for i, row in enumerate(rows):
-        anos_na_linha = [v for v in row if isinstance(v, (int, float)) and v in (2023, 2024)]
-        if len(anos_na_linha) >= 4:  # espera ao menos 4 ocorrências (2 por categoria)
+        count_2024 = sum(1 for v in row if _is_2024(v))
+        count_2023 = sum(1 for v in row if _is_2023(v))
+        if count_2024 >= 4 and count_2023 >= 2:
             header_idx = i
             break
 
@@ -247,12 +275,9 @@ def extract_mvi_estados(wb, year: int, output_dir: Path) -> None:
         print("  ! T01: cabeçalho com 2023/2024 não encontrado. Pulando.", file=sys.stderr)
         return
 
-    # Mapear colunas por posição
-    # A estrutura típica: UF | Hom. Doloso 23 | Hom. Doloso 24 | Latr. 23 | Latr. 24 | ...
-    # Usa heurística: pares de colunas por categoria
     header = rows[header_idx]
-    col_2023 = [i for i, v in enumerate(header) if v == 2023]
-    col_2024 = [i for i, v in enumerate(header) if v == 2024]
+    col_2023 = [i for i, v in enumerate(header) if _is_2023(v)]
+    col_2024 = [i for i, v in enumerate(header) if _is_2024(v)]
 
     # Assume mesma quantidade de colunas para cada ano e mesma ordem
     dados: list[dict] = []
@@ -269,18 +294,21 @@ def extract_mvi_estados(wb, year: int, output_dir: Path) -> None:
         dados.append({
             "uf": uf_str,
             "regiao": _regiao(uf_str),
+            # Índices: 0=Hom.Doloso  1=Latrocínio  2=LCFM
+            #          3=Policiais vítimas CVLI (descartado)
+            #          4=Intervenção Policial  5=MVI Total  6=Taxa
             "homicidio_doloso_2023": get(col_2023, 0),
             "homicidio_doloso_2024": get(col_2024, 0),
             "latrocinio_2023": get(col_2023, 1),
             "latrocinio_2024": get(col_2024, 1),
             "lcfm_2023": get(col_2023, 2),
             "lcfm_2024": get(col_2024, 2),
-            "intervencao_policial_2023": get(col_2023, 3),
-            "intervencao_policial_2024": get(col_2024, 3),
-            "mvi_total_2023": get(col_2023, 4),
-            "mvi_total_2024": get(col_2024, 4),
-            "taxa_2023": _round_or_none(row[col_2023[5]] if len(col_2023) > 5 and col_2023[5] < len(row) else None),
-            "taxa_2024": _round_or_none(row[col_2024[5]] if len(col_2024) > 5 and col_2024[5] < len(row) else None),
+            "intervencao_policial_2023": get(col_2023, 4),
+            "intervencao_policial_2024": get(col_2024, 4),
+            "mvi_total_2023": get(col_2023, 5),
+            "mvi_total_2024": get(col_2024, 5),
+            "taxa_2023": _round_or_none(row[col_2023[6]] if len(col_2023) > 6 and col_2023[6] < len(row) else None),
+            "taxa_2024": _round_or_none(row[col_2024[6]] if len(col_2024) > 6 and col_2024[6] < len(row) else None),
         })
 
     # Calcular variação percentual
@@ -432,54 +460,68 @@ def extract_feminicidio_hist(wb, year: int, output_dir: Path) -> None:
 
 
 def extract_letalidade(wb, year: int, output_dir: Path) -> None:
-    dados: dict[str, dict] = {}
-
-    for tabela in ("T09", "T10"):
-        if tabela not in wb.sheetnames:
-            print(f"  ! {tabela}: aba não encontrada. Pulando.", file=sys.stderr)
-            continue
-        rows = read_sheet(wb, tabela)
-
-        header_idx = None
-        for i, row in enumerate(rows):
-            anos = [v for v in row if isinstance(v, (int, float)) and v in (2023, 2024)]
-            if len(anos) >= 2:
-                header_idx = i
-                break
-
-        if header_idx is None:
-            continue
-
-        header = rows[header_idx]
-        col_2023 = [i for i, v in enumerate(header) if v == 2023]
-        col_2024 = [i for i, v in enumerate(header) if v == 2024]
-
-        for row in rows[header_idx + 1 :]:
-            uf = row[0]
-            if uf is None or str(uf).strip() not in UFS:
-                continue
-            uf_str = str(uf).strip()
-
-            if uf_str not in dados:
-                dados[uf_str] = {"uf": uf_str, "regiao": _regiao(uf_str)}
-
-            if tabela == "T09":
-                dados[uf_str]["mortes_2023"] = _int_or_none(row[col_2023[0]] if col_2023 else None)
-                dados[uf_str]["mortes_2024"] = _int_or_none(row[col_2024[0]] if col_2024 else None)
-            else:  # T10 — proporção em relação às MVI
-                dados[uf_str]["proporcao_mvi_2023"] = _round_or_none(row[col_2023[0]] if col_2023 else None)
-                dados[uf_str]["proporcao_mvi_2024"] = _round_or_none(row[col_2024[0]] if col_2024 else None)
-
-    if not dados:
-        print("  ! T09/T10: nenhum dado extraído.", file=sys.stderr)
+    """
+    T10 como fonte primária — usa headers com inteiros (sem '2023 (3)').
+    Estrutura T10:
+      col 1: MVI 2023   col 2: MVI 2024
+      col 3: MDIP 2023  col 4: MDIP 2024   (Mortes Decorrentes de Intervenção Policial)
+      col 5: % 2023     col 6: % 2024
+    T09 é ignorado — T10 já contém o total MDIP.
+    """
+    if "T10" not in wb.sheetnames:
+        print("  ! T10: aba não encontrada. Pulando.", file=sys.stderr)
         return
+
+    rows = read_sheet(wb, "T10")
+
+    # T10 usa inteiros puros (2023, 2024) — sem o problema '2023 (3)'
+    header_idx = None
+    for i, row in enumerate(rows):
+        count_2023 = sum(1 for v in row if isinstance(v, (int, float)) and int(v) == 2023)
+        count_2024 = sum(1 for v in row if isinstance(v, (int, float)) and int(v) == 2024)
+        if count_2023 >= 3 and count_2024 >= 3:
+            header_idx = i
+            break
+
+    if header_idx is None:
+        print("  ! T10: cabeçalho com 2023/2024 não encontrado. Pulando.", file=sys.stderr)
+        return
+
+    header = rows[header_idx]
+    col_2023 = [i for i, v in enumerate(header) if isinstance(v, (int, float)) and int(v) == 2023]
+    col_2024 = [i for i, v in enumerate(header) if isinstance(v, (int, float)) and int(v) == 2024]
+    # Ordem esperada: [MVI, MDIP, Proporção]  → índices 0, 1, 2
+
+    dados: list[dict] = []
+    for row in rows[header_idx + 1:]:
+        uf = row[0]
+        if uf is None or str(uf).strip() not in UFS:
+            continue
+        uf_str = str(uf).strip()
+
+        def get(cols, idx):
+            return row[cols[idx]] if idx < len(cols) and cols[idx] < len(row) else None
+
+        dados.append({
+            "uf": uf_str,
+            "regiao": _regiao(uf_str),
+            "mortes_2023": _int_or_none(get(col_2023, 1)),       # MDIP absoluto 2023
+            "mortes_2024": _int_or_none(get(col_2024, 1)),       # MDIP absoluto 2024
+            "proporcao_mvi_2023": _round_or_none(get(col_2023, 2)),  # % de MVI 2023
+            "proporcao_mvi_2024": _round_or_none(get(col_2024, 2)),  # % de MVI 2024
+        })
+
+    validate(dados, [
+        (len(dados) >= 27, f"T10: esperado 28 linhas, encontrado {len(dados)}"),
+        (any(d["uf"] == "Brasil" for d in dados), "T10: linha 'Brasil' não encontrada"),
+    ])
 
     save_json(
         output_dir / "letalidade.json",
         {
             "fonte": f"Fórum Brasileiro de Segurança Pública, {year}",
             "tabelas": ["T09", "T10"],
-            "dados": list(dados.values()),
+            "dados": dados,
         },
         "T09+T10 Letalidade policial",
     )
