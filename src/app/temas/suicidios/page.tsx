@@ -107,7 +107,6 @@ export default function SuicidiosPage() {
             fonte="Fórum Brasileiro de Segurança Pública"
             tabela="T22 · T01"
             anoReferencia={2024}
-            href="/temas/suicidios"
           />
           <InsightCard
             titulo="Suicídio: a violência invisível nos dados de segurança"

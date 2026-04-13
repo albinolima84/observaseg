@@ -99,7 +99,6 @@ export default function ViolenciaSexualPage() {
             anoReferencia={2024}
             fonte="Fórum Brasileiro de Segurança Pública"
             tabela="T34"
-            href="/temas/violencia-sexual"
           />
           <InsightCard
             titulo="Subnotificação: o dado real é 10× maior"
