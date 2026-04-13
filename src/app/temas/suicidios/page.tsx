@@ -5,6 +5,7 @@ import { InsightCard } from "@/components/ui/InsightCard";
 import { FonteTag } from "@/components/ui/FonteTag";
 import { getSuicidios, getMviEstados, getLetalidade } from "@/lib/data";
 import { fmtInteiro, fmtDecimal } from "@/lib/formatters";
+import { Termo } from "@/components/ui/Termo";
 
 export const metadata = {
   title: "Suicídios",
@@ -101,9 +102,9 @@ export default function SuicidiosPage() {
         <section className="grid md:grid-cols-2 gap-4 mb-14">
           <InsightCard
             destaque
-            titulo="Suicídio mata mais que latrocínio, LCFM e letalidade policial juntos"
+            titulo={<>Suicídio mata mais que latrocínio, <Termo>LCFM</Termo> e letalidade policial juntos</>}
             dado={fatorVsSoma ? `${fatorVsSoma}× a soma dos três componentes` : `${fmtInteiro(brasil.total_2024)} mortes`}
-            contexto={`Em 2024: latrocínio (${fmtInteiro(latrocinio)}), LCFM (${fmtInteiro(lcfm)}) e letalidade policial (${fmtInteiro(letalidadePolicial)}) somam ${fmtInteiro(somaTresComponentes)} mortes. O suicídio (${fmtInteiro(brasil.total_2024)}) supera essa soma em ${fatorVsSoma}×. São três fenômenos que dominam o debate de segurança pública — mas o suicídio, que raramente aparece nesse debate, é maior do que todos eles combinados.`}
+            contexto={<>Em 2024: latrocínio ({fmtInteiro(latrocinio)}), <Termo>LCFM</Termo> ({fmtInteiro(lcfm)}) e letalidade policial ({fmtInteiro(letalidadePolicial)}) somam {fmtInteiro(somaTresComponentes)} mortes. O suicídio ({fmtInteiro(brasil.total_2024)}) supera essa soma em {fatorVsSoma}×. São três fenômenos que dominam o debate de segurança pública — mas o suicídio, que raramente aparece nesse debate, é maior do que todos eles combinados.</>}
             fonte="Fórum Brasileiro de Segurança Pública"
             tabela="T22 · T01"
             anoReferencia={2024}
@@ -111,7 +112,7 @@ export default function SuicidiosPage() {
           <InsightCard
             titulo="Suicídio: a violência invisível nos dados de segurança"
             dado={proporcaoMVI != null ? `${fmtDecimal(proporcaoMVI)}% das MVI` : "~37% das MVI"}
-            contexto={`Com ${fmtInteiro(brasil.total_2024)} mortes em 2024, o suicídio representa ${proporcaoMVI != null ? fmtDecimal(proporcaoMVI) + "%" : "cerca de 37%"} de todas as Mortes Violentas Intencionais. É um fenômeno de saúde pública que raramente aparece nas estatísticas de segurança, mas que supera em escala feminicídio, latrocínio e LCFM somados.`}
+            contexto={<>Com {fmtInteiro(brasil.total_2024)} mortes em 2024, o suicídio representa {proporcaoMVI != null ? fmtDecimal(proporcaoMVI) + "%" : "cerca de 37%"} de todas as <Termo>MVI</Termo>. É um fenômeno de saúde pública que raramente aparece nas estatísticas de segurança, mas que supera em escala feminicídio, latrocínio e <Termo>LCFM</Termo> somados.</>}
             fonte="Fórum Brasileiro de Segurança Pública"
             tabela="T22"
             anoReferencia={2024}

@@ -14,6 +14,7 @@ import {
   getLetalidade,
 } from "@/lib/data";
 import { fmtInteiro } from "@/lib/formatters";
+import { Termo } from "@/components/ui/Termo";
 
 export const metadata = {
   title: "Anuário Segurança Pública — Dados e Insights",
@@ -162,9 +163,9 @@ export default function Home() {
 
             {/* Insight 5 — Suicídio vs MVI */}
             <InsightCard
-              titulo="Suicídio mata mais que latrocínio, LCFM e letalidade policial juntos"
+              titulo={<>Suicídio mata mais que latrocínio, <Termo>LCFM</Termo> e letalidade policial juntos</>}
               dado={fatorSuicidio ? `${fatorSuicidio}× a soma — ${fmtInteiro(brasilSuicidio.total_2024)} mortes` : "16.446 mortes em 2024"}
-              contexto={`Em 2024, suicídio (${fmtInteiro(brasilSuicidio.total_2024)}) supera em ${fatorSuicidio}× a soma de latrocínio (${fmtInteiro(brasilMvi.latrocinio_2024)}), LCFM (${fmtInteiro(brasilMvi.lcfm_2024)}) e mortes por intervenção policial (${fmtInteiro(brasilLet.mortes_2024)}). É um fenômeno de saúde pública que raramente aparece no debate de segurança.`}
+              contexto={<>Em 2024, suicídio ({fmtInteiro(brasilSuicidio.total_2024)}) supera em {fatorSuicidio}× a soma de latrocínio ({fmtInteiro(brasilMvi.latrocinio_2024)}), <Termo>LCFM</Termo> ({fmtInteiro(brasilMvi.lcfm_2024)}) e mortes por intervenção policial ({fmtInteiro(brasilLet.mortes_2024)}). É um fenômeno de saúde pública que raramente aparece no debate de segurança.</>}
               anoReferencia={2024}
               fonte="Fórum Brasileiro de Segurança Pública"
               tabela="T22 · T01"
