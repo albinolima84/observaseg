@@ -1,6 +1,7 @@
+import { getMeta } from "@/lib/data";
+
 export function Footer() {
-  const URL_ANUARIO =
-    "https://forumseguranca.org.br/wp-content/uploads/2025/09/anuario-2025.xlsx";
+  const meta = getMeta();
   const URL_FORUM = "https://forumseguranca.org.br";
 
   return (
@@ -14,13 +15,18 @@ export function Footer() {
             className="text-xs"
             style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
           >
-            Dados: 19º Anuário Brasileiro de Segurança Pública (2025)
+            Dados: {meta.numero_anuario}º Anuário Brasileiro de Segurança Pública ({meta.ano_publicacao})
           </p>
           <p
             className="text-xs"
-            style={{ color: "var(--text-dim)", fontFamily: "var(--font-mono)" }}
+            style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
           >
-            Referência: ano de 2024 · Publicação: 2025
+            Referência: ano de {meta.ano_referencia} · Extração:{" "}
+            {new Date(meta.data_extracao).toLocaleDateString("pt-BR", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            })}
           </p>
         </div>
 
@@ -35,9 +41,10 @@ export function Footer() {
             Fórum Brasileiro de Segurança Pública
           </a>
           <a
-            href={URL_ANUARIO}
+            href={meta.url_fonte}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={`Baixar planilha do ${meta.numero_anuario}º Anuário em formato Excel`}
             className="text-xs underline underline-offset-2 transition-colors hover:opacity-80"
             style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
           >

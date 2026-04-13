@@ -3,6 +3,7 @@ import { Footer } from "@/components/layout/Footer";
 import { StatCard } from "@/components/ui/StatCard";
 import { InsightCard } from "@/components/ui/InsightCard";
 import { FonteTag } from "@/components/ui/FonteTag";
+import { NotaMetodologica } from "@/components/ui/NotaMetodologica";
 import { getPatrimonio } from "@/lib/data";
 import { fmtInteiro } from "@/lib/formatters";
 
@@ -35,11 +36,11 @@ export default function ViolenciaPatrimonialPage() {
       <Header />
       <main className="max-w-6xl mx-auto px-4 py-12">
 
-        <p className="text-xs mb-6" style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-          <a href="/" style={{ color: "var(--text-dim)" }}>Início</a>
+        <nav aria-label="Navegação estrutural" className="text-xs mb-6" style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
+          <a href="/" style={{ color: "var(--text-muted)" }}>Início</a>
           {" / "}
-          <span style={{ color: "var(--text)" }}>Violência Patrimonial</span>
-        </p>
+          <span aria-current="page" style={{ color: "var(--text)" }}>Violência Patrimonial</span>
+        </nav>
 
         <header className="mb-6">
           <h1
@@ -54,24 +55,13 @@ export default function ViolenciaPatrimonialPage() {
           </p>
         </header>
 
-        {/* ── Nota metodológica ── */}
-        <div
-          className="rounded-lg p-4 mb-10 text-sm"
-          style={{
-            backgroundColor: "var(--surface)",
-            border: "1px solid var(--border)",
-            color: "var(--text-muted)",
-          }}
-        >
-          <p className="font-semibold mb-1" style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-            NOTA METODOLÓGICA
-          </p>
+        <NotaMetodologica>
           <p>
             Esta página apresenta apenas dados de <strong style={{ color: "var(--text)" }}>roubos</strong> (crime com violência ou ameaça).
             Os dados de furtos (sem violência) desta edição do Anuário não estão disponíveis em formato comparável entre estados.
             A comparação entre 2023 e 2024 também não é apresentada, pois os registros de 2023 são parciais.
           </p>
-        </div>
+        </NotaMetodologica>
 
         {/* ── StatCards ── */}
         <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14">
@@ -164,10 +154,11 @@ export default function ViolenciaPatrimonialPage() {
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-sm" style={{ borderCollapse: "collapse" }}>
+                <caption className="sr-only">Roubos de veículo por estado, 2024</caption>
                 <thead>
                   <tr style={{ borderBottom: "1px solid var(--border)" }}>
                     {["UF", "Região", "Registros"].map((h) => (
-                      <th key={h} className="text-left py-2 px-2 text-xs uppercase tracking-wide"
+                      <th key={h} scope="col" className="text-left py-2 px-2 text-xs uppercase tracking-wide"
                         style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
                         {h}
                       </th>
@@ -226,10 +217,11 @@ export default function ViolenciaPatrimonialPage() {
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-sm" style={{ borderCollapse: "collapse" }}>
+                <caption className="sr-only">Roubos de celular por estado, 2024</caption>
                 <thead>
                   <tr style={{ borderBottom: "1px solid var(--border)" }}>
                     {["UF", "Região", "Registros"].map((h) => (
-                      <th key={h} className="text-left py-2 px-2 text-xs uppercase tracking-wide"
+                      <th key={h} scope="col" className="text-left py-2 px-2 text-xs uppercase tracking-wide"
                         style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
                         {h}
                       </th>

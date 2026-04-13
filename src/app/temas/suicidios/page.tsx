@@ -35,11 +35,11 @@ export default function SuicidiosPage() {
       <Header />
       <main className="max-w-6xl mx-auto px-4 py-12">
 
-        <p className="text-xs mb-6" style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-          <a href="/" style={{ color: "var(--text-dim)" }}>Início</a>
+        <nav aria-label="Navegação estrutural" className="text-xs mb-6" style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
+          <a href="/" style={{ color: "var(--text-muted)" }}>Início</a>
           {" / "}
-          <span style={{ color: "var(--text)" }}>Suicídios</span>
-        </p>
+          <span aria-current="page" style={{ color: "var(--text)" }}>Suicídios</span>
+        </nav>
 
         <header className="mb-10">
           <h1
@@ -167,11 +167,13 @@ export default function SuicidiosPage() {
           </h2>
           <div className="overflow-x-auto">
             <table className="w-full text-sm" style={{ borderCollapse: "collapse" }}>
+              <caption className="sr-only">Mortes por suicídio por estado, 2024</caption>
               <thead>
                 <tr style={{ borderBottom: "1px solid var(--border)" }}>
                   {["UF", "Região", "Total", "Taxa /100k"].map((h) => (
                     <th
                       key={h}
+                      scope="col"
                       className="text-left py-2 px-3 text-xs uppercase tracking-wide"
                       style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
                     >

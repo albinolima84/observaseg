@@ -3,6 +3,7 @@ import { Footer } from "@/components/layout/Footer";
 import { StatCard } from "@/components/ui/StatCard";
 import { InsightCard } from "@/components/ui/InsightCard";
 import { FonteTag } from "@/components/ui/FonteTag";
+import { NotaMetodologica } from "@/components/ui/NotaMetodologica";
 import { getDesaparecimentos } from "@/lib/data";
 import { fmtInteiro } from "@/lib/formatters";
 
@@ -29,11 +30,11 @@ export default function DesaparecimentosPage() {
       <Header />
       <main className="max-w-6xl mx-auto px-4 py-12">
 
-        <p className="text-xs mb-6" style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-          <a href="/" style={{ color: "var(--text-dim)" }}>Início</a>
+        <nav aria-label="Navegação estrutural" className="text-xs mb-6" style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
+          <a href="/" style={{ color: "var(--text-muted)" }}>Início</a>
           {" / "}
-          <span style={{ color: "var(--text)" }}>Desaparecimentos</span>
-        </p>
+          <span aria-current="page" style={{ color: "var(--text)" }}>Desaparecimentos</span>
+        </nav>
 
         <header className="mb-6">
           <h1
@@ -48,25 +49,14 @@ export default function DesaparecimentosPage() {
           </p>
         </header>
 
-        {/* ── Aviso metodológico ── */}
-        <div
-          className="rounded-lg p-4 mb-10 text-sm"
-          style={{
-            backgroundColor: "var(--surface)",
-            border: "1px solid var(--accent)",
-            color: "var(--text-muted)",
-          }}
-        >
-          <p className="font-semibold mb-1" style={{ color: "var(--accent)", fontFamily: "var(--font-mono)" }}>
-            NOTA METODOLÓGICA
-          </p>
+        <NotaMetodologica>
           <p>
             Os dados de 2024 representam o <strong style={{ color: "var(--text)" }}>primeiro ano de coleta sistemática nacional</strong> pelo SINALID.
             Os registros de 2023 são parciais e não refletem a realidade daquele ano.
             Por isso, <strong style={{ color: "var(--text)" }}>não é possível comparar 2023 e 2024</strong> — as variações percentuais entre os dois anos
             não têm validade analítica e não são apresentadas nesta página.
           </p>
-        </div>
+        </NotaMetodologica>
 
         {/* ── StatCards ── */}
         <section className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-14">
@@ -174,11 +164,13 @@ export default function DesaparecimentosPage() {
           </h2>
           <div className="overflow-x-auto">
             <table className="w-full text-sm" style={{ borderCollapse: "collapse" }}>
+              <caption className="sr-only">Registros de desaparecimentos por estado, 2024</caption>
               <thead>
                 <tr style={{ borderBottom: "1px solid var(--border)" }}>
                   {["UF", "Região", "Desaparecidos 2024", "% do total"].map((h) => (
                     <th
                       key={h}
+                      scope="col"
                       className="text-left py-2 px-3 text-xs uppercase tracking-wide"
                       style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
                     >

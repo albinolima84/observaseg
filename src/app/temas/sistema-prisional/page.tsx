@@ -37,11 +37,11 @@ export default function SistemaPrisionalPage() {
       <main className="max-w-6xl mx-auto px-4 py-12">
 
         {/* ── Breadcrumb ── */}
-        <p className="text-xs mb-6" style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-          <a href="/" style={{ color: "var(--text-dim)" }}>Início</a>
+        <nav aria-label="Navegação estrutural" className="text-xs mb-6" style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
+          <a href="/" style={{ color: "var(--text-muted)" }}>Início</a>
           {" / "}
-          <span style={{ color: "var(--text)" }}>Sistema Prisional</span>
-        </p>
+          <span aria-current="page" style={{ color: "var(--text)" }}>Sistema Prisional</span>
+        </nav>
 
         {/* ── Hero ── */}
         <header className="mb-10">
@@ -150,11 +150,13 @@ export default function SistemaPrisionalPage() {
           </h2>
           <div className="overflow-x-auto">
             <table className="w-full text-sm" style={{ borderCollapse: "collapse" }}>
+              <caption className="sr-only">Evolução da população carcerária brasileira, série histórica 2000 a 2024</caption>
               <thead>
                 <tr style={{ borderBottom: "1px solid var(--border)" }}>
                   {["Ano", "Total encarcerado", "Sistema penitenciário", "Custódia das polícias"].map((h) => (
                     <th
                       key={h}
+                      scope="col"
                       className="text-left py-2 px-3 text-xs uppercase tracking-wide"
                       style={{ color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
                     >
