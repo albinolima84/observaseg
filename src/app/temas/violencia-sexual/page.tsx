@@ -6,6 +6,7 @@ import { FonteTag } from "@/components/ui/FonteTag";
 import { NotaMetodologica } from "@/components/ui/NotaMetodologica";
 import { getEstupro } from "@/lib/data";
 import { fmtInteiro, fmtDecimal } from "@/lib/formatters";
+import { Termo } from "@/components/ui/Termo";
 
 export const metadata = {
   title: "Violência Sexual",
@@ -83,7 +84,7 @@ export default function ViolenciaSexualPage() {
           <StatCard
             titulo="Taxa estimada"
             valor={taxaEstimada ? `${fmtDecimal(taxaEstimada)}` : "—"}
-            descricao="por 100 mil habitantes (pop. IBGE 2024)"
+            descricao={<>por 100 mil habitantes (pop. <Termo>IBGE</Termo> 2024)</>}
             fonte="FBSP · T34"
             inverterCor={false}
           />

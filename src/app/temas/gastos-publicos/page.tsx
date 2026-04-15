@@ -6,6 +6,7 @@ import { FonteTag } from "@/components/ui/FonteTag";
 import { getGastos, getMviEstados, getPopulacaoUF } from "@/lib/data";
 import { fmtDecimal, fmtVariacao, corVariacaoNeutra } from "@/lib/formatters";
 import { GastoMviScatter } from "./GastoMviScatter";
+import { Termo } from "@/components/ui/Termo";
 
 export const metadata = {
   title: "Gastos Públicos",
@@ -114,7 +115,7 @@ export default function GastosPublicosPage() {
           <StatCard
             titulo="Per capita Brasil 2024"
             valor={brasilPerCapita ? fmtPerCapita(brasilPerCapita) : "—"}
-            descricao="gasto médio por habitante (IBGE 2024)"
+            descricao={<>gasto médio por habitante (<Termo>IBGE</Termo> 2024)</>}
             fonte="FBSP · T96 · IBGE"
             inverterCor={false}
           />
@@ -137,7 +138,7 @@ export default function GastosPublicosPage() {
           <InsightCard
             titulo="Gastar mais não garante menos violência"
             dado="Correlação fraca"
-            contexto="Estados com os maiores orçamentos absolutos (SP, PR, RS) não são necessariamente os mais seguros. Bahia e Pernambuco gastam volumes expressivos e ainda registram taxas MVI acima da média. O gráfico abaixo mostra que a relação entre investimento e taxa de violência é difusa — outros fatores estruturais dominam o resultado."
+            contexto={<>Estados com os maiores orçamentos absolutos (SP, PR, RS) não são necessariamente os mais seguros. Bahia e Pernambuco gastam volumes expressivos e ainda registram taxas <Termo>MVI</Termo> acima da média. O gráfico abaixo mostra que a relação entre investimento e taxa de violência é difusa — outros fatores estruturais dominam o resultado.</>}
             fonte="Fórum Brasileiro de Segurança Pública"
             tabela="T96"
             anoReferencia={2024}
@@ -145,7 +146,7 @@ export default function GastosPublicosPage() {
           <InsightCard
             titulo="São Paulo: maior gasto, taxa abaixo da média"
             dado="R$ 14,6 bi"
-            contexto="Com R$ 14,6 bilhões em gastos de segurança — quase 10 vezes mais que o segundo colocado —, São Paulo é um caso à parte. Sua taxa MVI de 6,9/100k fica bem abaixo da média nacional (20,8/100k). Mas isolar o efeito do investimento é difícil: SP também tem maior PIB, maior urbanização e estrutura policial mais consolidada."
+            contexto={<>Com R$ 14,6 bilhões em gastos de segurança — quase 10 vezes mais que o segundo colocado —, São Paulo é um caso à parte. Sua taxa <Termo>MVI</Termo> de 6,9/100k fica bem abaixo da média nacional (20,8/100k). Mas isolar o efeito do investimento é difícil: SP também tem maior PIB, maior urbanização e estrutura policial mais consolidada.</>}
             fonte="Fórum Brasileiro de Segurança Pública"
             tabela="T96"
             anoReferencia={2024}

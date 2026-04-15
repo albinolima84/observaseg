@@ -6,6 +6,7 @@ import { getLetalidade, getMviEstados } from "@/lib/data";
 import { fmtInteiro, fmtDecimal, fmtVariacao, corVariacaoMVI } from "@/lib/formatters";
 import { FonteTag } from "@/components/ui/FonteTag";
 import { LetalidadeMviScatter } from "./LetalidadeMviScatter";
+import { Termo } from "@/components/ui/Termo";
 
 export const metadata = {
   title: "Letalidade Policial",
@@ -56,7 +57,7 @@ export default function LetalidadePolicialPage() {
             Letalidade Policial
           </h1>
           <p className="text-base max-w-2xl" style={{ color: "var(--text-muted)" }}>
-            Mortes Decorrentes de Intervenção Policial (MDIP) em serviço e fora de serviço,
+            Mortes Decorrentes de Intervenção Policial (<Termo>MDIP</Termo>) em serviço e fora de serviço,
             comparativo 2023–2024 por Unidade da Federação.
           </p>
         </header>
@@ -78,14 +79,14 @@ export default function LetalidadePolicialPage() {
             fonte="FBSP · T10"
           />
           <StatCard
-            titulo="Proporção das MVI 2024"
+            titulo={<>Proporção das <Termo>MVI</Termo> 2024</>}
             valor={`${fmtDecimal(brasil.proporcao_mvi_2024)}%`}
-            descricao="das MVI foram mortes por intervenção policial"
+            descricao={<>das <Termo>MVI</Termo> foram mortes por intervenção policial</>}
             fonte="FBSP · T10"
             inverterCor={false}
           />
           <StatCard
-            titulo="Proporção das MVI 2023"
+            titulo={<>Proporção das <Termo>MVI</Termo> 2023</>}
             valor={`${fmtDecimal(brasil.proporcao_mvi_2023)}%`}
             descricao="para comparação"
             fonte="FBSP · T10"
@@ -97,7 +98,7 @@ export default function LetalidadePolicialPage() {
           <InsightCard
             titulo="São Paulo: letalidade policial avança 61% em um ano"
             dado="+61,1%"
-            contexto="São Paulo passou de 504 para 813 mortes por intervenção policial em 2024 — o maior salto absoluto entre todos os estados. A proporção das MVI atribuída à polícia saltou de 14,5% para 21,7%. O estado, que antes se destacava por baixa letalidade relativa, agora se aproxima da média nacional."
+            contexto={<>São Paulo passou de 504 para 813 mortes por intervenção policial em 2024 — o maior salto absoluto entre todos os estados. A proporção das <Termo>MVI</Termo> atribuída à polícia saltou de 14,5% para 21,7%. O estado, que antes se destacava por baixa letalidade relativa, agora se aproxima da média nacional.</>}
             fonte="Fórum Brasileiro de Segurança Pública"
             tabela="T10"
             anoReferencia={2024}
@@ -113,8 +114,8 @@ export default function LetalidadePolicialPage() {
           <InsightCard
             destaque
             titulo="Amapá: 38% das mortes violentas são pela polícia"
-            dado="37,85% das MVI — maior proporção do país"
-            contexto="No Amapá, quase 4 em cada 10 mortes violentas intencionais são causadas por intervenções policiais — a maior proporção do país. Com taxa de MVI de 45,09/100k (terceira maior), o estado acumula duplo problema: muita violência e muita letalidade policial. O dado levanta questões sobre o modelo de segurança pública adotado."
+            dado={<>37,85% das <Termo>MVI</Termo> — maior proporção do país</>}
+            contexto={<>No Amapá, quase 4 em cada 10 mortes violentas intencionais são causadas por intervenções policiais — a maior proporção do país. Com taxa de <Termo>MVI</Termo> de 45,09/100k (terceira maior), o estado acumula duplo problema: muita violência e muita letalidade policial. O dado levanta questões sobre o modelo de segurança pública adotado.</>}
             fonte="Fórum Brasileiro de Segurança Pública"
             tabela="T10"
             anoReferencia={2024}
