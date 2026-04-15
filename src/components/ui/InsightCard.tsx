@@ -1,9 +1,10 @@
+import React from "react";
 import { FonteTag } from "./FonteTag";
 
 interface InsightCardProps {
-  titulo: string;
-  dado: string;
-  contexto: string;
+  titulo: React.ReactNode;
+  dado: React.ReactNode;
+  contexto: React.ReactNode;
   fonte: string;
   tabela?: string;
   anoReferencia: number;

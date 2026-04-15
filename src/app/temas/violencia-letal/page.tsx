@@ -5,6 +5,7 @@ import { InsightCard } from "@/components/ui/InsightCard";
 import { FonteTag } from "@/components/ui/FonteTag";
 import { getMviHistorico, getMviEstados } from "@/lib/data";
 import { fmtInteiro, fmtDecimal, fmtVariacao, corVariacaoMVI } from "@/lib/formatters";
+import { Termo } from "@/components/ui/Termo";
 import { MviHistoricoChart } from "./MviHistoricoChart";
 import { RankingChart } from "./RankingChart";
 
@@ -82,10 +83,9 @@ export default function ViolenciaLetalPage() {
             Violência Letal
           </h1>
           <p className="text-base max-w-2xl" style={{ color: "var(--text-muted)" }}>
-            Mortes Violentas Intencionais (MVI) incluem homicídio doloso,
-            latrocínio, lesão corporal seguida de morte e mortes por
-            intervenção policial. Série histórica 2012–2024 e comparativo
-            por Unidade da Federação.
+            <Termo>MVI</Termo> incluem homicídio doloso, latrocínio,{" "}
+            <Termo>LCFM</Termo> e mortes por intervenção policial.
+            Série histórica 2012–2024 e comparativo por Unidade da Federação.
           </p>
         </header>
 
@@ -136,7 +136,7 @@ export default function ViolenciaLetalPage() {
             className="text-xl font-semibold mb-2"
             style={{ fontFamily: "var(--font-display)", color: "var(--text)" }}
           >
-            Composição das MVI — Brasil 2024
+            Composição das <Termo>MVI</Termo> — Brasil 2024
           </h2>
           <p className="text-sm mb-6" style={{ color: "var(--text-muted)" }}>
             As MVI são a soma de quatro categorias. A intervenção policial
@@ -152,30 +152,34 @@ export default function ViolenciaLetalPage() {
           <div className="grid md:grid-cols-4 gap-4">
             {[
               {
+                id: "homicidio",
                 label: "Homicídio Doloso",
                 v2024: brasilEstados.homicidio_doloso_2024,
                 v2023: brasilEstados.homicidio_doloso_2023,
               },
               {
+                id: "latrocinio",
                 label: "Latrocínio",
                 v2024: brasilEstados.latrocinio_2024,
                 v2023: brasilEstados.latrocinio_2023,
               },
               {
-                label: "LCFM",
+                id: "lcfm",
+                label: <Termo>LCFM</Termo>,
                 v2024: brasilEstados.lcfm_2024,
                 v2023: brasilEstados.lcfm_2023,
               },
               {
+                id: "intervencao",
                 label: "Intervenção Policial",
                 v2024: brasilEstados.intervencao_policial_2024,
                 v2023: brasilEstados.intervencao_policial_2023,
               },
-            ].map(({ label, v2024, v2023 }) => {
+            ].map(({ id, label, v2024, v2023 }) => {
               const variacao = v2023 && v2024 ? +((v2024 - v2023) / v2023 * 100).toFixed(2) : undefined;
               return (
                 <div
-                  key={label}
+                  key={id}
                   className="rounded-lg p-4"
                   style={{ backgroundColor: "var(--surface)", border: "1px solid var(--border)" }}
                 >
@@ -200,9 +204,9 @@ export default function ViolenciaLetalPage() {
         {/* ── Insights ── */}
         <section className="grid md:grid-cols-2 gap-4 mb-14">
           <InsightCard
-            titulo="LCFM: o único componente que cresceu em 2024"
+            titulo={<><Termo>LCFM</Termo>: o único componente que cresceu em 2024</>}
             dado="+21,0%"
-            contexto="A Lesão Corporal Seguida de Morte (LCFM) passou de 628 para 760 casos — alta de 21% enquanto homicídio doloso (−5,8%), latrocínio (−3,7%) e mortes por intervenção policial (−2,7%) caíram. O LCFM está associado a violência interpessoal e doméstica, sinalizando uma dinâmica de violência que não responde às mesmas políticas que reduziram os homicídios."
+            contexto="A Lesão Corporal Seguida de Morte passou de 628 para 760 casos — alta de 21% enquanto homicídio doloso (−5,8%), latrocínio (−3,7%) e mortes por intervenção policial (−2,7%) caíram. O LCFM está associado a violência interpessoal e doméstica, sinalizando uma dinâmica que não responde às mesmas políticas que reduziram os homicídios."
             fonte="Fórum Brasileiro de Segurança Pública"
             tabela="T01"
             anoReferencia={2024}

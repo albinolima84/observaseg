@@ -1,10 +1,11 @@
+import React from "react";
 import { fmtVariacao, corVariacaoMVI } from "@/lib/formatters";
 
 interface StatCardProps {
-  titulo: string;
+  titulo: React.ReactNode;
   valor: string | number;
   variacao?: number;
-  descricao?: string;
+  descricao?: React.ReactNode;
   fonte: string;
   /** Se true, usa corVariacaoMVI (queda = verde). Padrão: true */
   inverterCor?: boolean;

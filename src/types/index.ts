@@ -62,21 +62,23 @@ export interface MviEstados {
 // Feminicídio
 // ------------------------------------------------------------
 
-/** Tabela T24 — Homicídios de mulheres + feminicídios 2023–2024 por UF */
+/** Tabela T24 — Homicídios de mulheres + feminicídios 2024 por UF
+ *  feminicidios_2024 derivado: homicidios_mulheres_2024 × proporcao_T07 / 100.
+ *  Dados absolutos 2023 excluídos por inconsistência na extração.
+ */
 export interface FeminicidioItem {
   uf: string;
   regiao: string | null;
-  homicidios_mulheres_2023: number | null;
   homicidios_mulheres_2024: number | null;
-  feminicidios_2023: number | null;
   feminicidios_2024: number | null;
-  proporcao_2023: number | null;  // % feminicídios / homicídios de mulheres
-  proporcao_2024: number | null;
+  proporcao_2024: number | null;  // % feminicídios / homicídios de mulheres (de T07)
+  proporcao_2023: number | null;  // proporção 2023 (de T07, somente percentual)
 }
 
 export interface Feminicidio {
   fonte: string;
   tabela: "T24";
+  nota: string;
   dados: FeminicidioItem[];
 }
 

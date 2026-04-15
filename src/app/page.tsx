@@ -9,7 +9,12 @@ import {
   getMviBrasilSerie,
   getFeminicidioHist,
   getAutoriaSexo,
+  getSuicidios,
+  getMviEstados,
+  getLetalidade,
 } from "@/lib/data";
+import { fmtInteiro } from "@/lib/formatters";
+import { Termo } from "@/components/ui/Termo";
 
 export const metadata = {
   title: "Anuário Segurança Pública — Dados e Insights",
@@ -25,6 +30,18 @@ export default function Home() {
   const autoriaHomens = autoria.dados.find(
     (d) => d.categoria === "vitimas_homens_mvi"
   );
+
+  // Dados para insights novos
+  const suicidios = getSuicidios();
+  const mviEstados = getMviEstados();
+  const let_ = getLetalidade();
+  const brasilSuicidio = suicidios.dados.find((d) => d.uf === "Brasil")!;
+  const brasilMvi = mviEstados.dados.find((d) => d.uf === "Brasil")!;
+  const brasilLet = let_.dados.find((d) => d.uf === "Brasil")!;
+  const somaTresComp = (brasilMvi.latrocinio_2024 ?? 0) + (brasilMvi.lcfm_2024 ?? 0) + (brasilLet.mortes_2024 ?? 0);
+  const fatorSuicidio = brasilSuicidio.total_2024 && somaTresComp
+    ? +(brasilSuicidio.total_2024 / somaTresComp).toFixed(1)
+    : null;
 
   return (
     <>
@@ -142,6 +159,28 @@ export default function Home() {
               fonte="Fórum Brasileiro de Segurança Pública"
               tabela="T127"
               href="/temas/sistema-prisional"
+            />
+
+            {/* Insight 5 — Suicídio vs MVI */}
+            <InsightCard
+              titulo={<>Suicídio mata mais que latrocínio, <Termo>LCFM</Termo> e letalidade policial juntos</>}
+              dado={fatorSuicidio ? `${fatorSuicidio}× a soma — ${fmtInteiro(brasilSuicidio.total_2024)} mortes` : "16.446 mortes em 2024"}
+              contexto={<>Em 2024, suicídio ({fmtInteiro(brasilSuicidio.total_2024)}) supera em {fatorSuicidio}× a soma de latrocínio ({fmtInteiro(brasilMvi.latrocinio_2024)}), <Termo>LCFM</Termo> ({fmtInteiro(brasilMvi.lcfm_2024)}) e mortes por intervenção policial ({fmtInteiro(brasilLet.mortes_2024)}). É um fenômeno de saúde pública que raramente aparece no debate de segurança.</>}
+              anoReferencia={2024}
+              fonte="Fórum Brasileiro de Segurança Pública"
+              tabela="T22 · T01"
+              href="/temas/suicidios"
+            />
+
+            {/* Insight 6 — Tendência estadual RN */}
+            <InsightCard
+              titulo="RN duplicou a taxa de violência em 12 anos"
+              dado="+102,6% — de 11,93 para 24,17/100k (2012→2024)"
+              contexto="Enquanto o Brasil reduziu 25% na taxa de MVI entre 2012 e 2024, o Rio Grande do Norte dobrou a sua — passando de 11,93 para 24,17 por 100 mil habitantes. Amapá (+84,5%) e Piauí (+23,2%) também tiveram altas expressivas. Na direção oposta, DF (−72,3%) e Goiás (−54%) registraram as maiores quedas do período."
+              anoReferencia={2024}
+              fonte="Fórum Brasileiro de Segurança Pública"
+              tabela="T02"
+              href="/temas/violencia-letal"
             />
           </div>
         </section>
